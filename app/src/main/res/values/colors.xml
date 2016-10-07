@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008db8</color>
+    <color name="colorPrimaryDark">#007ba0</color>
+    <color name="colorAccent">#58595b</color>
+
+    <color name="colorStatusBarColor">#007ba0</color>
+    <color name="colorNavigationBarColor">#e5e5e5</color>
+
+    <color name="colorText">#58595b</color>
+    <color name="colorText2">#cc58595b</color>
+    <color name="colorTextPassive">#8058595b</color>
+    <color name="colorHint">#4058595b</color>
+
+    <color name="colorBg">#fbfbfb</color>
+    <color name="colorBgAlpha">#ccfbfbfb</color>
+    <color name="colorDivider">#e5e5e5</color>
+    <color name="colorDividerWhite">#33ffffff</color>
+    <color name="colorTabEnd">#c8c8c8</color>
+    <color name="colorTabActive">#80008db8</color>
+
+    <color name="colorStatus01">#2279ea</color>
+    <color name="colorStatus02">#03b3da</color>
+    <color name="colorStatus03">#8626df</color>
+    <color name="colorStatus05">#0b860a</color>
+    <color name="colorStatus07">#dc0f3a</color>
+    <color name="colorStatus08">#be1210</color>
+    <color name="colorStatus09">#d94b27</color>
+    <color name="colorStatus10">#a84476</color>
+    <color name="colorStatus11">#ef2d12</color>
+    <color name="colorStatus12">#d71135</color>
+    <color name="colorStatus13">#86041c</color>
+    <color name="colorStatus14">#6b6b6b</color>
+    <color name="colorStatus15">#26b326</color>
+    <color name="colorStatus16">#71716f</color>
+</resources>
+<!--/////////
+////Color////
+////Alpha////
+////Value////
+//100% _ FF//
+//95% __ F2//
+//90% __ E6//
+//85% __ D9//
+//80% __ CC//
+//75% __ BF//
+//70% __ B3//
+//65% __ A6//
+//60% __ 99//
+//55% __ 8C//
+//50% __ 80//
+//45% __ 73//
+//40% __ 66//
+//35% __ 59//
+//30% __ 4D//
+//25% __ 40//
+//20% __ 33//
+//15% __ 26//
+//10% __ 1A//
+//5% ___ 0D//
+//0% ___ 00//
+//////////-->

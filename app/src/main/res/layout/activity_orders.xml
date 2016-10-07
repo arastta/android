@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.arastta.OrdersActivity">
+
+    <include layout="@layout/layout_tab"
+        android:id="@+id/Tabs"/>
+
+    <ListView
+        android:id="@+id/OrdersLV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/Tabs"
+        android:layout_above="@+id/Bottom"
+        android:background="@color/colorBg"
+        android:animationCache="false"
+        android:scrollingCache="false"
+        android:scrollbars="none"
+        android:fadingEdgeLength="0dp"
+        android:dividerHeight="0dp"
+        android:divider="@null" />
+
+    <RelativeLayout
+        android:id="@+id/Bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorDivider"
+        android:paddingBottom="1dp"
+        android:paddingTop="1dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white">
+
+            <TextView
+                android:id="@+id/TextViewTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="12dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18dp"
+                android:text="@string/total"/>
+
+            <TextView
+                android:id="@+id/OrdersTotalValue"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:paddingRight="12dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="21dp"
+                android:text="0"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

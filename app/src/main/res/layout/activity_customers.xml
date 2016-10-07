@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.arastta.CustomersActivity">
+
+    <include layout="@layout/layout_tab"
+        android:id="@+id/Tabs"/>
+
+    <ListView
+        android:id="@+id/CustomersLV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/Tabs"
+        android:background="@color/colorBg"
+        android:animationCache="false"
+        android:scrollingCache="false"
+        android:scrollbars="none"
+        android:fadingEdgeLength="0dp"
+        android:dividerHeight="0dp"
+        android:divider="@null" />
+
+</RelativeLayout>

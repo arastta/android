@@ -1,0 +1,84 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:background="@null" >
+	
+	<RelativeLayout 
+	    android:id="@+id/OrdersItem"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:padding="8dp"
+		android:background="@drawable/shadow_bg" >
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+
+			<TextView
+				android:id="@+id/OrderFullname"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:maxLines="1"
+				android:textColor="@color/colorText"
+				android:textSize="21dp"/>
+
+			<TextView
+				android:id="@+id/OrderStatus"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="4dp"
+				android:maxLines="1"
+				android:textColor="@color/colorText2"
+				android:textSize="12dp"/>
+
+			<TextView
+				android:id="@+id/OrderCustomerID"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="4dp"
+				android:maxLines="1"
+				android:textColor="@color/colorText2"
+				android:textSize="10dp"/>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentRight="true"
+			android:gravity="right"
+			android:orientation="vertical">
+
+			<TextView
+				android:id="@+id/OrderValue"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:maxLines="1"
+				android:textColor="@color/colorText"
+				android:textSize="21dp"/>
+
+			<TextView
+				android:id="@+id/OrderDate"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="4dp"
+				android:maxLines="1"
+				android:textColor="@color/colorText2"
+				android:textSize="12dp"/>
+
+			<TextView
+				android:id="@+id/OrderItemNumber"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="4dp"
+				android:maxLines="1"
+				android:textColor="@color/colorText2"
+				android:textSize="10dp"/>
+
+		</LinearLayout>
+
+	</RelativeLayout>
+
+</RelativeLayout>
