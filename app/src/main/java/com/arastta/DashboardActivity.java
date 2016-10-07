@@ -1,11 +1,13 @@
 package com.arastta;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -177,6 +179,48 @@ public class DashboardActivity extends MasterActivity
         DashboardDetailValue3.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
         DashboardDetailValue4 = (TextView)findViewById(R.id.DashboardDetailValue4);
         DashboardDetailValue4.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
+
+        LinearLayout LayoutOrders = (LinearLayout)findViewById(R.id.LayoutOrders);
+        LayoutOrders.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent i = new Intent(context, OrdersActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        LinearLayout LayoutCustomers = (LinearLayout)findViewById(R.id.LayoutCustomers);
+        LayoutCustomers.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent i = new Intent(context, CustomersActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        LinearLayout LayoutProducts = (LinearLayout)findViewById(R.id.LayoutProducts);
+        LayoutProducts.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent i = new Intent(context, ProductsActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+                finish();
+            }
+        });
 
         day = 1;
         new getDashboard().execute();

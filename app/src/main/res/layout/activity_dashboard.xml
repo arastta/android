@@ -56,75 +56,85 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/LayoutOrders"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal">
 
                         <TextView
                             android:id="@+id/TextViewOrders"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:gravity="center"
                             android:textColor="@color/colorText"
                             android:textSize="10dp"
                             android:text="@string/orders"/>
 
                         <TextView
+                            android:id="@+id/ValueOrders"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:textColor="@color/colorText"
+                            android:textSize="21dp"
+                            android:text="0"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/LayoutCustomers"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal">
+
+                        <TextView
                             android:id="@+id/TextViewCustomers"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:gravity="center"
                             android:textColor="@color/colorText"
                             android:textSize="10dp"
                             android:text="@string/customers"/>
 
                         <TextView
+                            android:id="@+id/ValueCustomers"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:textColor="@color/colorText"
+                            android:textSize="21dp"
+                            android:text="0"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/LayoutProducts"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal">
+
+                        <TextView
                             android:id="@+id/TextViewProducts"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:gravity="center"
                             android:textColor="@color/colorText"
                             android:textSize="10dp"
                             android:text="@string/products"/>
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/ValueOrders"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:textColor="@color/colorText"
-                            android:textSize="21dp"
-                            android:text="0"/>
-
-                        <TextView
-                            android:id="@+id/ValueCustomers"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:textColor="@color/colorText"
-                            android:textSize="21dp"
-                            android:text="0"/>
-
                         <TextView
                             android:id="@+id/ValueProducts"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:gravity="center"
                             android:textColor="@color/colorText"
                             android:textSize="21dp"

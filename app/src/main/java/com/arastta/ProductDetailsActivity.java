@@ -1,14 +1,17 @@
 package com.arastta;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.ImageOptions;
@@ -26,6 +29,8 @@ public class ProductDetailsActivity extends Master2Activity
 {
     Context context;
     String ScreenName = "";
+
+    String product_id = "";
 
     ViewPager ImagePager;
     ImagePagerAdapter ImageAdapter;
@@ -45,12 +50,22 @@ public class ProductDetailsActivity extends Master2Activity
         //unUsed
         TextView ProductInfo = (TextView)findViewById(R.id.ProductInfo);
         ProductInfo.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
+        TextView ProductInfoID = (TextView)findViewById(R.id.ProductInfoID);
+        ProductInfoID.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
         TextView ProductInfoModel = (TextView)findViewById(R.id.ProductInfoModel);
         ProductInfoModel.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
+        TextView ProductInfoSKU = (TextView)findViewById(R.id.ProductInfoSKU);
+        ProductInfoSKU.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
         TextView ProductInfoPrice = (TextView)findViewById(R.id.ProductInfoPrice);
         ProductInfoPrice.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
+        TextView ProductInfoQuantity = (TextView)findViewById(R.id.ProductInfoQuantity);
+        ProductInfoQuantity.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
         TextView ProductInfoManufacturer = (TextView)findViewById(R.id.ProductInfoManufacturer);
         ProductInfoManufacturer.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
+        TextView ProductInfoStatus = (TextView)findViewById(R.id.ProductInfoStatus);
+        ProductInfoStatus.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
+        TextView ProductDescription = (TextView)findViewById(R.id.ProductDescription);
+        ProductDescription.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
 
         Bundle extras = getIntent().getExtras();
         if (extras != null)
@@ -62,32 +77,11 @@ public class ProductDetailsActivity extends Master2Activity
             {
                 JSONObject jsonObject = (JSONObject) new JSONTokener(String.valueOf(extras.getString("object"))).nextValue();
 
-                MenuTitle.setText(String.format(getResources().getString(R.string.details_title), jsonObject.getString("name"),jsonObject.getString("product_id")));
+                MenuTitle.setText(jsonObject.getString("name"));
 
-                JSONArray imagesArray = new JSONArray(jsonObject.getJSONArray("images").toString());
-                ImageList.clear();
-                ImageList = new ArrayList<String>();
-                for (int i = 0; i < imagesArray.length(); i++) {
-                    ImageList.add(imagesArray.getString(i));
-                    Log.e("json", i + "=" + imagesArray.getString(i));
-                }
-                CircleIndicator DotIndicator = (CircleIndicator)findViewById(R.id.DotIndicator);
-                ImagePager = (ViewPager) this.findViewById(R.id.ImagePager);
-                ImageAdapter = new ImagePagerAdapter();
-                ImagePager.setAdapter(ImageAdapter);
-                DotIndicator.setViewPager(ImagePager);
+                product_id = jsonObject.getString("product_id");
 
-                TextView ProductInfoModelValue = (TextView)findViewById(R.id.ProductInfoModelValue);
-                ProductInfoModelValue.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
-                ProductInfoModelValue.setText(jsonObject.getString("model"));
-
-                TextView ProductInfoPriceValue = (TextView)findViewById(R.id.ProductInfoPriceValue);
-                ProductInfoPriceValue.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
-                ProductInfoPriceValue.setText("$"+String.valueOf(Float.valueOf(jsonObject.getString("price"))));
-
-                TextView ProductInfoManufacturerValue = (TextView)findViewById(R.id.ProductInfoManufacturerValue);
-                ProductInfoManufacturerValue.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
-                ProductInfoManufacturerValue.setText(jsonObject.getString("manufacturer"));
+                new getProductDetails().execute();
             }
             catch (JSONException e)
             {
@@ -130,6 +124,100 @@ public class ProductDetailsActivity extends Master2Activity
         public void destroyItem(ViewGroup container, int position, Object object)
         {
             ((ViewPager) container).removeView((ImageView) object);
+        }
+    }
+
+    private class getProductDetails extends AsyncTask<String, Void, String>
+    {
+        String ResultText = "";
+
+        @Override
+        protected void onProgressUpdate(Void... values){}
+
+        @Override
+        protected void onPreExecute(){}
+
+        @Override
+        protected String doInBackground(String... params)
+        {
+            ResultText = ConstantsAndFunctions.getHtml(MasterActivity.username,MasterActivity.password,MasterActivity.url,"products/"+product_id);
+
+            return ResultText;
+        }
+
+        @Override
+        protected void onPostExecute(String result)
+        {
+            Log.e(ScreenName+":"+String.valueOf(Thread.currentThread().getStackTrace()[2].getLineNumber()),
+                    ResultText);
+
+            if(ResultText.equals("error"))
+            {
+                Toast.makeText(context, getResources().getString(R.string.connection_failed), Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                try
+                {
+                    JSONObject jsonObject = (JSONObject) new JSONTokener(String.valueOf(ResultText)).nextValue();
+
+                    TextView ProductInfoIDValue = (TextView)findViewById(R.id.ProductInfoIDValue);
+                    ProductInfoIDValue.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
+                    ProductInfoIDValue.setText(jsonObject.getString("product_id"));
+
+                    TextView ProductInfoModelValue = (TextView)findViewById(R.id.ProductInfoModelValue);
+                    ProductInfoModelValue.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
+                    ProductInfoModelValue.setText(jsonObject.getString("model"));
+
+                    TextView ProductInfoSKUValue = (TextView)findViewById(R.id.ProductInfoSKUValue);
+                    ProductInfoSKUValue.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
+                    ProductInfoSKUValue.setText(jsonObject.getString("sku"));
+
+                    TextView ProductInfoPriceValue = (TextView)findViewById(R.id.ProductInfoPriceValue);
+                    ProductInfoPriceValue.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
+                    ProductInfoPriceValue.setText("$"+String.valueOf(Float.valueOf(jsonObject.getString("price"))));
+
+                    TextView ProductInfoQuantityValue = (TextView)findViewById(R.id.ProductInfoQuantityValue);
+                    ProductInfoQuantityValue.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
+                    ProductInfoQuantityValue.setText(jsonObject.getString("quantity"));
+
+                    TextView ProductInfoManufacturerValue = (TextView)findViewById(R.id.ProductInfoManufacturerValue);
+                    ProductInfoManufacturerValue.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
+                    ProductInfoManufacturerValue.setText(jsonObject.getString("manufacturer"));
+
+                    TextView ProductInfoStatusValue = (TextView)findViewById(R.id.ProductInfoStatusValue);
+                    ProductInfoStatusValue.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
+                    if(jsonObject.getString("status").equals("0")){
+                        ProductInfoStatusValue.setText(context.getResources().getString(R.string.disable));
+                        ProductInfoStatusValue.setTextColor(context.getResources().getColor(R.color.colorStatus07));
+                    }
+
+                    TextView ProductDescriptionValue = (TextView)findViewById(R.id.ProductDescriptionValue);
+                    ProductDescriptionValue.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
+                    ProductDescriptionValue.setText(Html.fromHtml(jsonObject.getString("description")));
+
+                    JSONArray imagesArray = new JSONArray(jsonObject.getJSONArray("images").toString());
+                    ImageList.clear();
+                    ImageList = new ArrayList<String>();
+                    for (int i = 0; i < imagesArray.length(); i++) {
+                        ImageList.add(imagesArray.getString(i));
+                        Log.e("json", i + "=" + imagesArray.getString(i));
+                    }
+                    CircleIndicator DotIndicator = (CircleIndicator)findViewById(R.id.DotIndicator);
+                    ImagePager = (ViewPager) findViewById(R.id.ImagePager);
+                    ImageAdapter = new ImagePagerAdapter();
+                    ImagePager.setAdapter(ImageAdapter);
+                    DotIndicator.setViewPager(ImagePager);
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+                catch (ClassCastException e)
+                {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
