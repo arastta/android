@@ -20,13 +20,13 @@ import java.util.ArrayList;
 public class CustomersActivity extends MasterActivity
 {
 
-    Context context;
-    String ScreenName = "";
+    static Context context;
+    static String ScreenName = "";
 
-    boolean Working = false;
-    int day = 1;
+    static boolean Working = false;
+    static int day = 1;
 
-    CustomersAdapter adapter;
+    static CustomersAdapter adapter;
     static ArrayList<JSONObject> arrayList = new ArrayList<JSONObject>();
     static ListView listView;
 
@@ -64,15 +64,18 @@ public class CustomersActivity extends MasterActivity
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
+        activePage = 2;
+
         super.onCreate(savedInstanceState);
+
+        MenuTitle.setText(getResources().getString(R.string.customers));
+
         setContentView(R.layout.activity_customers);
 
         context = CustomersActivity.this;
         ScreenName = "CustomersActivity";
-
-        activePage = 2;
-        MenuTitle.setText(getResources().getString(R.string.customers));
 
         //Tabs
         TabLine1 = (RelativeLayout)findViewById(R.id.TabLine1);
@@ -94,7 +97,7 @@ public class CustomersActivity extends MasterActivity
                 TabText1.setTextColor(getResources().getColor(R.color.colorPrimary));
                 TabText1.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
                 day = 1;
-                new getCustomers().execute();
+                xCustomers("");
             }
         });
 
@@ -106,7 +109,7 @@ public class CustomersActivity extends MasterActivity
                 TabText2.setTextColor(getResources().getColor(R.color.colorPrimary));
                 TabText2.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
                 day = 30;
-                new getCustomers().execute();
+                xCustomers("");
             }
         });
 
@@ -118,7 +121,7 @@ public class CustomersActivity extends MasterActivity
                 TabText3.setTextColor(getResources().getColor(R.color.colorPrimary));
                 TabText3.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
                 day = 365;
-                new getCustomers().execute();
+                xCustomers("");
             }
         });
 
@@ -130,10 +133,15 @@ public class CustomersActivity extends MasterActivity
         listView.setHeaderDividersEnabled(false);
 
         day = 1;
-        new getCustomers().execute();
+        xCustomers("");
     }
 
-    private class getCustomers extends AsyncTask<String, Void, String>
+    public static void xCustomers(String text)
+    {
+        new getCustomers().execute(text);
+    }
+
+    public static class getCustomers extends AsyncTask<String, Void, String>
     {
         String ResultText = "";
 
@@ -150,7 +158,7 @@ public class CustomersActivity extends MasterActivity
         @Override
         protected String doInBackground(String... params)
         {
-            ResultText = ConstantsAndFunctions.getHtml(username,password,url,"customers"+"?date_from="+ConstantsAndFunctions.getFromDate(day)+"&date_to="+ConstantsAndFunctions.getTodayDate());//stats?date_from=2016-04-01&date_to=2016-09-07
+            ResultText = ConstantsAndFunctions.getHtml(username,password,url,"customers"+"?date_from="+ConstantsAndFunctions.getFromDate(day)+"&date_to="+ConstantsAndFunctions.getTodayDate()+params[0]);//stats?date_from=2016-04-01&date_to=2016-09-07
 
             return ResultText;
         }
@@ -166,7 +174,7 @@ public class CustomersActivity extends MasterActivity
 
             if(ResultText.equals("error"))
             {
-                Toast.makeText(context, getResources().getString(R.string.connection_failed), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, context.getResources().getString(R.string.connection_failed), Toast.LENGTH_SHORT).show();
             }
             else
             {
@@ -182,6 +190,13 @@ public class CustomersActivity extends MasterActivity
                         {
                             arrayList.add(jsonArray.getJSONObject(i));
                         }
+                        adapter = new CustomersAdapter(context,arrayList);
+                        listView.setAdapter(adapter);
+                    }
+                    else
+                    {
+                        arrayList.clear();
+                        arrayList = new ArrayList<JSONObject>();
                         adapter = new CustomersAdapter(context,arrayList);
                         listView.setAdapter(adapter);
                     }

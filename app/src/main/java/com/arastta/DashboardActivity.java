@@ -85,14 +85,16 @@ public class DashboardActivity extends MasterActivity
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
+        activePage = 0;
+
         super.onCreate(savedInstanceState);
+
+        MenuTitle.setText(getResources().getString(R.string.dashboard));
+
         setContentView(R.layout.activity_dashboard);
 
         context = DashboardActivity.this;
         ScreenName = "DashboardActivity";
-
-        activePage = 0;
-        MenuTitle.setText(getResources().getString(R.string.dashboard));
 
         li = (LineGraph)findViewById(R.id.linegraph);
 
@@ -340,6 +342,10 @@ public class DashboardActivity extends MasterActivity
                     e.printStackTrace();
                 }
                 catch (ClassCastException e)
+                {
+                    e.printStackTrace();
+                }
+                catch (NumberFormatException e)
                 {
                     e.printStackTrace();
                 }

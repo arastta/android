@@ -20,15 +20,15 @@ import java.util.ArrayList;
 
 public class OrdersActivity extends MasterActivity
 {
-    Context context;
-    String ScreenName = "";
+    static Context context;
+    static String ScreenName = "";
 
-    boolean Working = false;
-    int day = 1;
+    static boolean Working = false;
+    static int day = 1;
 
-    TextView OrdersTotalValue;
+    static TextView OrdersTotalValue;
 
-    OrdersAdapter adapter;
+    static OrdersAdapter adapter;
     static ArrayList<JSONObject> arrayList = new ArrayList<JSONObject>();
     static ListView listView;
 
@@ -67,15 +67,18 @@ public class OrdersActivity extends MasterActivity
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
+        activePage = 1;
+
         super.onCreate(savedInstanceState);
+
+        MenuTitle.setText(getResources().getString(R.string.orders));
+
         setContentView(R.layout.activity_orders);
 
         context = OrdersActivity.this;
         ScreenName = "OrdersActivity";
-
-        activePage = 1;
-        MenuTitle.setText(getResources().getString(R.string.orders));
 
         //unUsed
         TextView TextViewTotal = (TextView)findViewById(R.id.TextViewTotal);
@@ -101,7 +104,7 @@ public class OrdersActivity extends MasterActivity
                 TabText1.setTextColor(getResources().getColor(R.color.colorPrimary));
                 TabText1.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
                 day = 1;
-                new getOrders().execute();
+                xOrders("");
             }
         });
 
@@ -113,7 +116,7 @@ public class OrdersActivity extends MasterActivity
                 TabText2.setTextColor(getResources().getColor(R.color.colorPrimary));
                 TabText2.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
                 day = 30;
-                new getOrders().execute();
+                xOrders("");
             }
         });
 
@@ -125,7 +128,7 @@ public class OrdersActivity extends MasterActivity
                 TabText3.setTextColor(getResources().getColor(R.color.colorPrimary));
                 TabText3.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
                 day = 365;
-                new getOrders().execute();
+                xOrders("");
             }
         });
 
@@ -140,12 +143,18 @@ public class OrdersActivity extends MasterActivity
         listView.setHeaderDividersEnabled(false);
 
         day = 1;
-        new getOrders().execute();
+        xOrders("");
     }
 
-    private class getOrders extends AsyncTask<String, Void, String>
+    public static void xOrders(String text)
+    {
+        new getOrders().execute(text);
+    }
+
+    public static class getOrders extends AsyncTask<String, Void, String>
     {
         String ResultText = "";
+        String text = "";
 
         @Override
         protected void onProgressUpdate(Void... values){}
@@ -160,7 +169,8 @@ public class OrdersActivity extends MasterActivity
         @Override
         protected String doInBackground(String... params)
         {
-            ResultText = ConstantsAndFunctions.getHtml(username,password,url,"orders?order=DESC"+"&date_from="+ConstantsAndFunctions.getFromDate(day)+"&date_to="+ConstantsAndFunctions.getTodayDate());//stats?date_from=2016-04-01&date_to=2016-09-07
+            text = params[0];
+            ResultText = ConstantsAndFunctions.getHtml(username,password,url,"orders?order=DESC"+"&date_from="+ConstantsAndFunctions.getFromDate(day)+"&date_to="+ConstantsAndFunctions.getTodayDate()+text);//stats?date_from=2016-04-01&date_to=2016-09-07
 
             return ResultText;
         }
@@ -176,7 +186,7 @@ public class OrdersActivity extends MasterActivity
 
             if(ResultText.equals("error"))
             {
-                Toast.makeText(context, getResources().getString(R.string.connection_failed), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, context.getResources().getString(R.string.connection_failed), Toast.LENGTH_SHORT).show();
             }
             else
             {
@@ -195,6 +205,13 @@ public class OrdersActivity extends MasterActivity
                         adapter = new OrdersAdapter(context,arrayList);
                         listView.setAdapter(adapter);
                     }
+                    else
+                    {
+                        arrayList.clear();
+                        arrayList = new ArrayList<JSONObject>();
+                        adapter = new OrdersAdapter(context,arrayList);
+                        listView.setAdapter(adapter);
+                    }
                 }
                 catch (JSONException e)
                 {
@@ -206,11 +223,11 @@ public class OrdersActivity extends MasterActivity
                 }
             }
 
-            new getOrdersTotal().execute();
+            new getOrdersTotal().execute(text);
         }
     }
 
-    private class getOrdersTotal extends AsyncTask<String, Void, String>
+    public static class getOrdersTotal extends AsyncTask<String, Void, String>
     {
         String ResultText = "";
 
@@ -227,7 +244,7 @@ public class OrdersActivity extends MasterActivity
         @Override
         protected String doInBackground(String... params)
         {
-            ResultText = ConstantsAndFunctions.getHtml(username,password,url,"orders/totals"+"?date_from="+ConstantsAndFunctions.getFromDate(day)+"&date_to="+ConstantsAndFunctions.getTodayDate());//stats?date_from=2016-04-01&date_to=2016-09-07
+            ResultText = ConstantsAndFunctions.getHtml(username,password,url,"orders/totals"+"?date_from="+ConstantsAndFunctions.getFromDate(day)+"&date_to="+ConstantsAndFunctions.getTodayDate()+params[0]);//stats?date_from=2016-04-01&date_to=2016-09-07
 
             return ResultText;
         }
@@ -243,7 +260,7 @@ public class OrdersActivity extends MasterActivity
 
             if(ResultText.equals("error"))
             {
-                Toast.makeText(context, getResources().getString(R.string.connection_failed), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, context.getResources().getString(R.string.connection_failed), Toast.LENGTH_SHORT).show();
             }
             else
             {

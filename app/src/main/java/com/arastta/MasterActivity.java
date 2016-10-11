@@ -11,11 +11,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -64,7 +67,13 @@ public class MasterActivity extends Activity
 
     TextView MenuTitle;
 
-    ProgressDialog loading = null;
+    static ProgressDialog loading = null;
+
+    boolean searchIsOpen = false;
+    RelativeLayout SearchBar;
+    EditText SearchText;
+    ImageButton SearchClose;
+    ImageButton SearchButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -133,6 +142,7 @@ public class MasterActivity extends Activity
         MenuStoreLv.setDrawingCacheEnabled(true);
         MenuStoreLv.setWillNotCacheDrawing(true);
         MenuStoreLv.setHeaderDividersEnabled(false);
+
         /*
         View footerView = View.inflate(context, R.layout.item_stores, null);
         MenuStoreLv.addFooterView(footerView);
@@ -288,6 +298,120 @@ public class MasterActivity extends Activity
         MenuStoreURL = (TextView)findViewById(R.id.MenuStoreURL);
         MenuStoreURL.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
 
+        //Search
+        final InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        searchIsOpen = false;
+        SearchBar = (RelativeLayout) findViewById(R.id.SearchBar);
+
+        SearchText = (EditText) findViewById(R.id.SearchText);
+        SearchText.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
+        SearchText.setOnKeyListener(new View.OnKeyListener()
+        {
+            public boolean onKey(View v, int keyCode, KeyEvent event)
+            {
+                if ((event.getAction() == KeyEvent.ACTION_UP) && (keyCode == KeyEvent.KEYCODE_ENTER))
+                {
+                    String text = SearchText.getText().toString().trim();
+
+                    imm.hideSoftInputFromWindow(SearchText.getWindowToken(), 0);
+
+                    if(activePage == 1)
+                    {
+                        //Orders
+                        OrdersActivity.xOrders("&search="+text);
+                    }
+                    if(activePage == 2)
+                    {
+                        //Customers
+                        CustomersActivity.xCustomers("&search="+text);
+                    }
+                    if(activePage == 3)
+                    {
+                        //Products
+                        ProductsActivity.xProducts("?search="+text);
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        SearchClose = (ImageButton) findViewById(R.id.SearchClose);
+        SearchClose.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                searchIsOpen = false;
+                SearchBar.setVisibility(RelativeLayout.GONE);
+                SearchText.setText("");
+
+                imm.hideSoftInputFromWindow(SearchText.getWindowToken(), 0);
+
+                if(activePage == 1)
+                {
+                    //Orders
+                    OrdersActivity.xOrders("");
+                }
+                if(activePage == 2)
+                {
+                    //Customers
+                    CustomersActivity.xCustomers("");
+                }
+                if(activePage == 3)
+                {
+                    //Products
+                    ProductsActivity.xProducts("");
+                }
+            }
+        });
+
+        SearchButton = (ImageButton) findViewById(R.id.SearchButton);
+        SearchButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if(searchIsOpen)
+                {
+                    String text = SearchText.getText().toString().trim();
+
+                    imm.hideSoftInputFromWindow(SearchText.getWindowToken(), 0);
+
+                    if(activePage == 1)
+                    {
+                        //Orders
+                        OrdersActivity.xOrders("&search="+text);
+                    }
+                    if(activePage == 2)
+                    {
+                        //Customers
+                        CustomersActivity.xCustomers("&search="+text);
+                    }
+                    if(activePage == 3)
+                    {
+                        //Products
+                        ProductsActivity.xProducts("?search="+text);
+                    }
+                }
+                else
+                {
+                    searchIsOpen = true;
+                    SearchBar.setVisibility(RelativeLayout.VISIBLE);
+                }
+            }
+        });
+
+        if(activePage == 0)
+        {
+            SearchButton.setVisibility(ImageButton.GONE);
+        }
+        else
+        {
+            SearchButton.setVisibility(ImageButton.VISIBLE);
+        }
+
         TextView GetArasttaCloud = (TextView)findViewById(R.id.GetArasttaCloud);
         GetArasttaCloud.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
         GetArasttaCloud.setOnClickListener(new View.OnClickListener()
@@ -314,8 +438,32 @@ public class MasterActivity extends Activity
     @Override
     public void onBackPressed()
     {
-        Log.e("SideDrawerIsClosed",String.valueOf(SideDrawer.isClosed()));
-        if(!SideDrawer.isClosed())
+        if(searchIsOpen)
+        {
+            searchIsOpen = false;
+            SearchBar.setVisibility(RelativeLayout.GONE);
+            if(!SearchText.getText().toString().trim().equals(""))
+            {
+                SearchText.setText("");
+                if(activePage == 1)
+                {
+                    //Orders
+                    OrdersActivity.xOrders("");
+                }
+                if(activePage == 2)
+                {
+                    //Customers
+                    CustomersActivity.xCustomers("");
+                }
+                if(activePage == 3)
+                {
+                    //Products
+                    ProductsActivity.xProducts("");
+                }
+            }
+
+        }
+        else if(!SideDrawer.isClosed())
         {
             SideDrawer.closeLeftSide();
         }

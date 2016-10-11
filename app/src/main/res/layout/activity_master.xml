@@ -26,6 +26,47 @@
             android:textColor="@android:color/white"
             android:textSize="18dp"/>
 
+        <ImageButton
+            android:id="@+id/SearchButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/icon_search"/>
+
+        <RelativeLayout
+            android:id="@+id/SearchBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/SearchButton"
+            android:background="@color/colorPrimary"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/SearchText"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="4dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:gravity="center_vertical"
+                android:layout_toLeftOf="@+id/SearchClose"
+                android:layout_centerVertical="true"
+                android:background="@android:color/white"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:imeOptions="actionSearch"
+                android:textColor="@color/colorText"
+                android:textSize="18dp"/>
+
+            <ImageButton
+                android:id="@+id/SearchClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/icon_close"/>
+
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <LinearLayout

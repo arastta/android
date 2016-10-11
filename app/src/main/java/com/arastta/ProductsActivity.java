@@ -17,28 +17,30 @@ import java.util.ArrayList;
 
 public class ProductsActivity extends MasterActivity
 {
-    Context context;
-    String ScreenName = "";
+    static Context context;
+    static String ScreenName = "";
 
-    boolean Working = false;
-    int day = 1;
+    static boolean Working = false;
 
-    TextView ProductsTotalValue;
+    static TextView ProductsTotalValue;
 
-    ProductsAdapter adapter;
+    static ProductsAdapter adapter;
     static ArrayList<JSONObject> arrayList = new ArrayList<JSONObject>();
     static ListView listView;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
+        activePage = 3;
+
         super.onCreate(savedInstanceState);
+
+        MenuTitle.setText(getResources().getString(R.string.products));
+
         setContentView(R.layout.activity_products);
 
         context = ProductsActivity.this;
         ScreenName = "ProductsActivity";
-
-        activePage = 3;
-        MenuTitle.setText(getResources().getString(R.string.products));
 
         //unUsed
         TextView TextViewProducts = (TextView)findViewById(R.id.TextViewProducts);
@@ -53,11 +55,15 @@ public class ProductsActivity extends MasterActivity
         listView.setWillNotCacheDrawing(true);
         listView.setHeaderDividersEnabled(false);
 
-        day = 1;
-        new getProducts().execute();
+        xProducts("");
     }
 
-    private class getProducts extends AsyncTask<String, Void, String>
+    public static void xProducts(String text)
+    {
+        new getProducts().execute(text);
+    }
+
+    public static class getProducts extends AsyncTask<String, Void, String>
     {
         String ResultText = "";
 
@@ -74,7 +80,7 @@ public class ProductsActivity extends MasterActivity
         @Override
         protected String doInBackground(String... params)
         {
-            ResultText = ConstantsAndFunctions.getHtml(username,password,url,"products");
+            ResultText = ConstantsAndFunctions.getHtml(username,password,url,"products"+params[0]);
 
             return ResultText;
         }
@@ -90,7 +96,7 @@ public class ProductsActivity extends MasterActivity
 
             if(ResultText.equals("error"))
             {
-                Toast.makeText(context, getResources().getString(R.string.connection_failed), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, context.getResources().getString(R.string.connection_failed), Toast.LENGTH_SHORT).show();
             }
             else
             {
@@ -114,6 +120,11 @@ public class ProductsActivity extends MasterActivity
                     else
                     {
                         ProductsTotalValue.setText("0");
+
+                        arrayList.clear();
+                        arrayList = new ArrayList<JSONObject>();
+                        adapter = new ProductsAdapter(context,arrayList,0);
+                        listView.setAdapter(adapter);
                     }
                 }
                 catch (JSONException e)
