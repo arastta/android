@@ -1,8 +1,10 @@
 package com.arastta;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
@@ -117,6 +119,83 @@ public class StoreActivity extends Activity
             }
         });
 
+        ImageButton TrashButton = (ImageButton)findViewById(R.id.TrashButton);
+        TrashButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                new AlertDialog.Builder(context)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle(context.getResources().getString(R.string.warning))
+                    .setMessage(context.getResources().getString(R.string.delete_store))
+                    .setPositiveButton(context.getResources().getString(R.string.yes), new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            try
+                            {
+                                JSONArray allStores = new JSONArray();
+
+                                JSONArray allStoresX = new JSONArray(ConstantsAndFunctions.readToFile(savePath, 1));
+                                for (int i=0;i<allStoresX.length();i++)
+                                {
+                                    if(!allStoresX.getJSONObject(i).getString("store_url").equals(editStoreUrl))
+                                    {
+                                        allStores.put(allStoresX.getJSONObject(i));
+                                    }
+                                }
+
+                                boolean back = true;
+
+                                if(new JSONObject(ConstantsAndFunctions.readToFile(savePath, 0)).getString("store_url").equals(editStoreUrl))
+                                {
+                                    ConstantsAndFunctions.deleteToFile(savePath, 0);
+                                    if(allStores.length() > 0)
+                                    {
+                                        ConstantsAndFunctions.writeToFile(savePath, 0, allStores.getJSONObject(0).toString());
+                                    }
+                                    back = false;
+                                }
+
+                                if(allStores.length() == 0)
+                                {
+                                    ConstantsAndFunctions.deleteToFile(savePath, 1);
+                                }
+                                else
+                                {
+                                    ConstantsAndFunctions.writeToFile(savePath, 1, allStores.toString());
+                                }
+
+                                if(back)
+                                {
+                                    onBackPressed();
+                                }
+                                else
+                                {
+                                    Intent i = new Intent(context, DashboardActivity.class);
+
+                                    if(allStores.length() == 0)
+                                        i = new Intent(context, MainActivity.class);
+
+                                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(i);
+                                    finish();
+                                }
+                            }
+                            catch (JSONException e)
+                            {
+                                e.printStackTrace();
+                            }
+                        }
+                    })
+                    .setNegativeButton(context.getResources().getString(R.string.no), null)
+                    .show();
+            }
+        });
+
         TextView CancelButton = (TextView)findViewById(R.id.CancelButton);
         CancelButton.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
         CancelButton.setOnClickListener(new View.OnClickListener() {
@@ -211,6 +290,7 @@ public class StoreActivity extends Activity
 
             TopBack.setVisibility(ImageButton.GONE);
             CancelButton.setVisibility(TextView.GONE);
+            TrashButton.setVisibility(ImageButton.GONE);
         }
 
     }
@@ -319,7 +399,10 @@ public class StoreActivity extends Activity
                     Log.e("allStores",allStores.toString());
                     ConstantsAndFunctions.writeToFile(savePath, 1, allStores.toString());
 
-                    startActivity(new Intent(context, DashboardActivity.class));
+                    Intent i = new Intent(context, DashboardActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(i);
                     finish();
                 }
                 catch (JSONException e){

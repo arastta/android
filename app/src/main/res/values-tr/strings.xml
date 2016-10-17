@@ -1,0 +1,120 @@
+<resources>
+    <string name="app_name">Arastta</string>
+
+    <string name="font">"fonts/DroidSans.ttf"</string>
+    <string name="font_bold">"fonts/DroidSans-Bold.ttf"</string>
+
+    <string name="please_wait">Lütfen bekleyin..</string>
+    <string name="connection_failed">"Bağlantı kurulamadı. Lütfen ayarlarınızı kontrol edin"</string>
+
+    <string name="exit_toast">"Çıkmak için \"Geri\" tuşuna basın."</string>
+
+    <string name="save">Kaydet</string>
+    <string name="cancel">İptal</string>
+    <string name="enable">Etkin</string>
+    <string name="disable">Kapalı</string>
+    <string name="yes">Evet</string>
+    <string name="no">Hayır</string>
+    <string name="warning">Uyarı</string>
+
+    <string name="delete_store">İlgili storu silmek istediğinize emin misiniz?</string>
+
+    <string name="get_arastta_cloud">Arastta Bulut\'a Geçin</string>
+
+    <string name="new_store">Yeni Mağaza</string>
+    <string name="StoreTitle">Mağaza İsmi</string>
+    <string name="storeUrl">Mağaza Adresi</string>
+    <string name="checkboxTitle1">İsmi otomatik getir</string>
+    <string name="checkboxTitle2">Güvenli bağlantı (TLS)</string>
+    <string name="checkboxTitle3">Yeni sipariş</string>
+    <string name="checkboxTitle4">Sipariş durum değişikliği</string>
+    <string name="checkboxTitle5">Yeni müşteri kaydı</string>
+    <string name="checkboxTitle6">Sipariş detayında mağaza ismini göster</string>
+    <string name="checkboxTitle7">Ürün resimlerini göster</string>
+    <string name="storeUrlTitle">Mağaza Adresi (http:// ve https:// olmadan)</string>
+    <string name="UsernameTitle">API Kullanıcı Adı</string>
+    <string name="PasswordTitle">API Şifresi</string>
+    <string name="NotTitle">Uyarı</string>
+    <string name="ListTitle">Liste Ayarları</string>
+
+    <string name="store_create_error">"Lütfen, gerekli bilgileri girin."</string>
+
+    <string name="order_status_complete">"Sipariş durumu güncellendi."</string>
+
+    <string name="dashboard">Kontrol Paneli</string>
+    <string name="orders">Siparişler</string>
+    <string name="customers">Müşteriler</string>
+    <string name="products">Ürünler</string>
+
+    <string name="manage_stores">Mağazaları Yönet</string>
+    <string name="app_settings">Uygulama Ayarları</string>
+
+    <string name="add_store">Mağaza Ekle..</string>
+
+    <string name="today">Bugün</string>
+    <string name="monthly">Aylık</string>
+    <string name="yearly">Yıllık</string>
+
+    <string name="sales">Satışlar</string>
+    <string name="product_info">Ürün Bilgisi</string>
+    <string name="product_desc">Ürün Açıklaması</string>
+    <string name="customer_total">Sipariş Toplamı</string>
+    <string name="info">Bilgi</string>
+    <string name="history">Geçmiş</string>
+    <string name="notify_customer">Müşteriye Bildir</string>
+    <string name="notification">Uyarı</string>
+
+    <string name="dashboard_details_1">Ort. sipariş tutarı / gün:</string>
+    <string name="dashboard_details_2">Ort. sipariş / gün:</string>
+    <string name="dashboard_details_3">Ort. müşteri / gün:</string>
+    <string name="dashboard_details_4">Ort. sipariş tutarı / müşteri:</string>
+
+    <string name="total">Toplam:</string>
+    <string name="customer_id">Müşteri No:</string>
+    <string name="order_id">Sipariş No:</string>
+    <string name="product_number">Ürünler:</string>
+    <string name="order_number">Siparişler:</string>
+    <string name="model">Ürün Kodu:</string>
+    <string name="id">No:</string>
+    <string name="quantity">Adet:</string>
+    <string name="price">Fiyat:</string>
+    <string name="sku">SKU:</string>
+    <string name="status">Durum:</string>
+    <string name="manufacturer">Üretici:</string>
+    <string name="fullname">Tam Adı:</string>
+    <string name="ip">IP:</string>
+    <string name="description">Açıklama:</string>
+    <string name="order_count">Sipariş Sayısı:</string>
+    <string name="register_date">Kayıt Tarihi:</string>
+    <string name="invoice_prefix">Fatura Ön-eki:</string>
+    <string name="company">Firma:</string>
+    <string name="address">Adres:</string>
+    <string name="city">Şehir:</string>
+    <string name="country">Ülke:</string>
+    <string name="email">E-posta:</string>
+    <string name="phone">Telefon:</string>
+    <string name="fax">Faks:</string>
+    <string name="payment_method">Ödeme Metodu:</string>
+    <string name="comment">Yorum:</string>
+
+    <string name="details_title" formatted="false">%s (No:%s)</string>
+
+    <string-array name="StatusesLists" >
+        <item>Kayıp Siparişler,0,#000000</item>
+        <item>Bekleme,1,#2279ea</item>
+        <item>İşleniyor,2,#03b3da</item>
+        <item>Kargolandı,3,#8626df</item>
+        <item>Tamamlandı,5,#0b860a</item>
+        <item>İptal Edildi,7,#dc0f3a</item>
+        <item>Engellendi,8,#be1210</item>
+        <item>İptal Geri Alındı,9,#d94b27</item>
+        <item>Başarısız,10,#a84476</item>
+        <item>İade Edildi,11,#ef2d12</item>
+        <item>Geri Alındı,12,#d71135</item>
+        <item>Geri Ödeme,13,#86041c</item>
+        <item>Süresi Doldu,14,#6b6b6b"</item>
+        <item>İşlendi,15,#26b326</item>
+        <item>Hükümsüz,16,"#71716f</item>
+    </string-array>
+
+</resources>

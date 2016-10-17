@@ -73,15 +73,6 @@ public class ConstantsAndFunctions extends Service
 		filenames[1] = "/allStores.file";
 	}
 
-	public static void deleteToFile(String savePath, int file)
-	{
-		CreateFilenames();
-
-		File logFile = new File(savePath, filenames[file]);
-
-		if(logFile.exists())logFile.delete();
-	}
-
 	public static Boolean checkToFile(String savePath, int file)
 	{
 		CreateFilenames();
@@ -91,6 +82,17 @@ public class ConstantsAndFunctions extends Service
 		Log.i("checkToFile",savePath + filenames[file] + " = " + String.valueOf(logFile.exists()));
 
 		return logFile.exists();
+	}
+
+	public static void deleteToFile(String savePath, int file)
+	{
+		CreateFilenames();
+
+		File logFile = new File(savePath, filenames[file]);
+
+		Log.i("deleteToFile",savePath + filenames[file] + " = " + String.valueOf(logFile.exists()));
+
+		if(logFile.exists())logFile.delete();
 	}
 
 	public static String readToFile(String savePath, int file)
@@ -186,7 +188,7 @@ public class ConstantsAndFunctions extends Service
 	    
 	    try
 	    {
-            String link = getHttpOrHttps()+xUrl+"/api/"+functions;
+            String link = getHttpOrHttps()+xUrl+"/index.php/api/"+functions;
 			Log.e("getHtml", link);
 
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();

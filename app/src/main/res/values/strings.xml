@@ -13,6 +13,11 @@
     <string name="cancel">Cancel</string>
     <string name="enable">Enable</string>
     <string name="disable">Disable</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="warning">Warning</string>
+
+    <string name="delete_store">Are you sure you want to remove the store?</string>
 
     <string name="get_arastta_cloud">Get Arastta Cloud</string>
 
@@ -27,8 +32,8 @@
     <string name="checkboxTitle6">Show store name in order info</string>
     <string name="checkboxTitle7">Show product thumbnails</string>
     <string name="storeUrlTitle">Store URL (without http:// or https://)</string>
-    <string name="UsernameTitle">Username</string>
-    <string name="PasswordTitle">Password</string>
+    <string name="UsernameTitle">API Username</string>
+    <string name="PasswordTitle">API Password</string>
     <string name="NotTitle">Notification</string>
     <string name="ListTitle">List Settings</string>
 

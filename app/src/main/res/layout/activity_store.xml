@@ -28,6 +28,13 @@
             android:textSize="18dp"
             android:text="@string/new_store"/>
 
+        <ImageButton
+            android:id="@+id/TrashButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/icon_trash"/>
+
     </RelativeLayout>
 
     <ScrollView

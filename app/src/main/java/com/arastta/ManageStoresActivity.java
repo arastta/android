@@ -35,6 +35,24 @@ public class ManageStoresActivity extends Master2Activity
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_manage_stores);
 
+        //SetUp();
+
+        //loadStores();
+    }
+
+    @Override
+    protected void onResume() {
+        activePage = 5;
+
+        SetUp();
+
+        loadStores();
+
+        super.onResume();
+    }
+
+    public void SetUp()
+    {
         context = ManageStoresActivity.this;
         ScreenName = "ManageStoresActivity";
 
@@ -49,7 +67,7 @@ public class ManageStoresActivity extends Master2Activity
         ManageStoresLV.setHeaderDividersEnabled(false);
 
         View footerView = View.inflate(context, R.layout.item_stores, null);
-        ManageStoresLV.addFooterView(footerView);
+        if(ManageStoresLV.getFooterViewsCount() == 0)ManageStoresLV.addFooterView(footerView);
 
         TextView StoreTitle = (TextView)footerView.findViewById(R.id.StoreTitle);
         StoreTitle.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
@@ -63,8 +81,6 @@ public class ManageStoresActivity extends Master2Activity
                 startActivity(new Intent(context, StoreActivity.class));
             }
         });
-
-        loadStores();
     }
 
     public void loadStores()
