@@ -222,13 +222,13 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="right"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/DashboardDetailValue1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
                         android:textColor="@color/colorPrimary"
                         android:textSize="12dp"
                         android:text="0"/>
@@ -237,7 +237,6 @@
                         android:id="@+id/DashboardDetailValue2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
                         android:textColor="@color/colorPrimary"
                         android:textSize="12dp"
                         android:text="0"/>
@@ -246,7 +245,6 @@
                         android:id="@+id/DashboardDetailValue3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
                         android:textColor="@color/colorPrimary"
                         android:textSize="12dp"
                         android:text="0"/>
@@ -255,7 +253,6 @@
                         android:id="@+id/DashboardDetailValue4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
                         android:textColor="@color/colorPrimary"
                         android:textSize="12dp"
                         android:text="0"/>

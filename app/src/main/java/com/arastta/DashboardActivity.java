@@ -326,16 +326,15 @@ public class DashboardActivity extends MasterActivity
                     li.setRangeY(0, maxValue + ConstantsAndFunctions.convertDpToPixel_PixelToDp(context,true,8));
                     li.setLineToFill(0);//1 fill empty :S
 
-                    DecimalFormat decimalFormat = new DecimalFormat("#.###");
                     float customerNumber = customers.getInt("number");
                     if(orderValue != 0)
-                        DashboardDetailValue1.setText(String.valueOf(Float.valueOf(decimalFormat.format(orderValue/day))));
+                        DashboardDetailValue1.setText(String.valueOf(Math.round(Float.valueOf(orderValue/day)*10.0)/10.0));//100
                     if(orderNumber != 0)
-                        DashboardDetailValue2.setText(String.valueOf(Float.valueOf(decimalFormat.format(orderNumber/day))));
+                        DashboardDetailValue2.setText(String.valueOf(Math.round(Float.valueOf(orderNumber/day)*10.0)/10.0));
                     if(customerNumber != 0)
-                        DashboardDetailValue3.setText(String.valueOf(Float.valueOf(decimalFormat.format(customerNumber/day))));
+                        DashboardDetailValue3.setText(String.valueOf(Math.round(Float.valueOf(customerNumber/day)*10.0)/10.0));
                     if(orderNumber != 0  && customerNumber != 0)
-                        DashboardDetailValue4.setText(String.valueOf(Float.valueOf(decimalFormat.format(orderValue/customerNumber))));
+                        DashboardDetailValue4.setText(String.valueOf(Math.round(Float.valueOf(orderValue/customerNumber)*10.0)/10.0));
                 }
                 catch (JSONException e)
                 {

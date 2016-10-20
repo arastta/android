@@ -6,7 +6,6 @@
 
     <string name="please_wait">Lütfen bekleyin..</string>
     <string name="connection_failed">"Bağlantı kurulamadı. Lütfen ayarlarınızı kontrol edin"</string>
-
     <string name="exit_toast">"Çıkmak için \"Geri\" tuşuna basın."</string>
 
     <string name="save">Kaydet</string>
