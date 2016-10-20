@@ -4,116 +4,116 @@
     <string name="font">"fonts/DroidSans.ttf"</string>
     <string name="font_bold">"fonts/DroidSans-Bold.ttf"</string>
 
-    <string name="please_wait">Please wait..</string>
-    <string name="connection_failed">"Connection Failed. Please check your connection settings"</string>
-    <string name="exit_toast">"Tap again on \"Back\" button to exit."</string>
+    <string name="please_wait">Por favor, aguarde..</string>
+    <string name="connection_failed">"Falha na conexão. Por favor, verifique suas configurações de conexão"</string>
+    <string name="exit_toast">"Pressione o botão \"Voltar\" novamente para sair."</string>
 
-    <string name="save">Save</string>
-    <string name="cancel">Cancel</string>
-    <string name="enable">Enabled</string>
-    <string name="disable">Disabled</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-    <string name="warning">Warning</string>
+    <string name="save">Salvar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="enable">Habilitado</string>
+    <string name="disable">Desabilitado</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="warning">Aviso</string>
 
-    <string name="delete_store">Are you sure you want to remove the store?</string>
+    <string name="delete_store">Tem certeza que deseja remover a loja?</string>
 
-    <string name="get_arastta_cloud">Get Arastta Cloud</string>
+    <string name="get_arastta_cloud">Obter Arastta Cloud</string>
 
-    <string name="new_store">New Store</string>
-    <string name="StoreTitle">Store Title</string>
-    <string name="storeUrl">Store URL</string>
-    <string name="checkboxTitle1">Retrieve title automatically</string>
-    <string name="checkboxTitle2">Use secure connection (TLS)</string>
-    <string name="checkboxTitle3">Order created</string>
-    <string name="checkboxTitle4">Order status changed</string>
-    <string name="checkboxTitle5">New customer registered</string>
-    <string name="checkboxTitle6">Show store name in order info</string>
-    <string name="checkboxTitle7">Show product thumbnails</string>
-    <string name="storeUrlTitle">Store URL (without http:// or https://)</string>
-    <string name="UsernameTitle">API Username</string>
-    <string name="PasswordTitle">API Password</string>
-    <string name="NotTitle">Notification</string>
-    <string name="ListTitle">List Settings</string>
+    <string name="new_store">Nova Loja</string>
+    <string name="StoreTitle">Título da Loja</string>
+    <string name="storeUrl">URL da Loja</string>
+    <string name="checkboxTitle1">Recuperar título automaticamente</string>
+    <string name="checkboxTitle2">Utilizar conexão segura (TLS)</string>
+    <string name="checkboxTitle3">Pedido realizado</string>
+    <string name="checkboxTitle4">Situação do pedido alterada</string>
+    <string name="checkboxTitle5">Registro de novo cliente</string>
+    <string name="checkboxTitle6">Exibir nome da loja nas informações do pedido</string>
+    <string name="checkboxTitle7">Exibir miniatura dos produtos</string>
+    <string name="storeUrlTitle">URL da Loja (sem http:// ou https://)</string>
+    <string name="UsernameTitle">Nome de Usuário da API</string>
+    <string name="PasswordTitle">Senha da API</string>
+    <string name="NotTitle">Notificação</string>
+    <string name="ListTitle">Listar Configurações</string>
 
-    <string name="store_create_error">"Please enter the required information to complete."</string>
+    <string name="store_create_error">"Por favor, digite a informação necessária para concluir."</string>
 
-    <string name="order_status_complete">"Order status has been updated."</string>
+    <string name="order_status_complete">"Situação do pedido atualizada."</string>
 
-    <string name="dashboard">Dashboard</string>
-    <string name="orders">Orders</string>
-    <string name="customers">Customers</string>
-    <string name="products">Products</string>
+    <string name="dashboard">Painel</string>
+    <string name="orders">Pedidos</string>
+    <string name="customers">Clientes</string>
+    <string name="products">Produtos</string>
 
-    <string name="manage_stores">Manage Stores</string>
-    <string name="app_settings">App Settings</string>
+    <string name="manage_stores">Gerenciar Lojas</string>
+    <string name="app_settings">Configurações do App</string>
 
-    <string name="add_store">Add Store..</string>
+    <string name="add_store">Adicionar Loja...</string>
 
-    <string name="today">Today</string>
-    <string name="monthly">Monthly</string>
-    <string name="yearly">Yearly</string>
+    <string name="today">Hoje</string>
+    <string name="monthly">Mensal</string>
+    <string name="yearly">Anual</string>
 
-    <string name="sales">Sales</string>
-    <string name="product_info">Product Info</string>
-    <string name="product_desc">Product Description</string>
-    <string name="customer_total">Orders Total</string>
-    <string name="info">Info</string>
-    <string name="history">History</string>
-    <string name="notify_customer">Notify Customer</string>
-    <string name="notification">Notification</string>
+    <string name="sales">Vendas</string>
+    <string name="product_info">Informações do Produto</string>
+    <string name="product_desc">Descrição do Produto</string>
+    <string name="customer_total">Total dos Pedidos</string>
+    <string name="info">Informação</string>
+    <string name="history">Histórico</string>
+    <string name="notify_customer">Notificar Cliente</string>
+    <string name="notification">Notificação</string>
 
-    <string name="dashboard_details_1">Avg. order value / day:</string>
-    <string name="dashboard_details_2">Avg. order / day:</string>
-    <string name="dashboard_details_3">Avg. customers / day:</string>
-    <string name="dashboard_details_4">Avg. order value / customer:</string>
+    <string name="dashboard_details_1">Valor médio do pedido / dia:</string>
+    <string name="dashboard_details_2">Média de pedidos / dia:</string>
+    <string name="dashboard_details_3">Média de clientes / dia:</string>
+    <string name="dashboard_details_4">Valor médio do pedido / cliente:</string>
 
     <string name="total">Total:</string>
-    <string name="customer_id">Customer ID:</string>
-    <string name="order_id">Order ID:</string>
-    <string name="product_number">Products:</string>
-    <string name="order_number">Orders:</string>
-    <string name="model">Model:</string>
+    <string name="customer_id">ID do Cliente:</string>
+    <string name="order_id">ID do Pedido:</string>
+    <string name="product_number">Produtos:</string>
+    <string name="order_number">Pedidos:</string>
+    <string name="model">Modelo:</string>
     <string name="id">ID:</string>
-    <string name="quantity">Quantity:</string>
-    <string name="price">Price:</string>
+    <string name="quantity">Quantidade:</string>
+    <string name="price">Preço:</string>
     <string name="sku">SKU:</string>
-    <string name="status">Status:</string>
-    <string name="manufacturer">Manufacturer:</string>
-    <string name="fullname">Fullname:</string>
+    <string name="status">Situação:</string>
+    <string name="manufacturer">Fabricante:</string>
+    <string name="fullname">Nome Completo:</string>
     <string name="ip">IP:</string>
-    <string name="description">Description:</string>
-    <string name="order_count">Order Count:</string>
-    <string name="register_date">Register Date:</string>
-    <string name="invoice_prefix">Invoice Prefix:</string>
-    <string name="company">Company:</string>
-    <string name="address">Address:</string>
-    <string name="city">City:</string>
-    <string name="country">Country:</string>
+    <string name="description">Descrição:</string>
+    <string name="order_count">Total de Pedidos:</string>
+    <string name="register_date">Data de Registro:</string>
+    <string name="invoice_prefix">Prefixo da Fatura:</string>
+    <string name="company">Companhia:</string>
+    <string name="address">Endereço:</string>
+    <string name="city">Cidade:</string>
+    <string name="country">País:</string>
     <string name="email">E-mail:</string>
-    <string name="phone">Phone:</string>
+    <string name="phone">Telefone:</string>
     <string name="fax">Fax:</string>
-    <string name="payment_method">Payment Method:</string>
-    <string name="comment">Comment:</string>
+    <string name="payment_method">Método de Pagamento:</string>
+    <string name="comment">Comentário:</string>
 
     <string name="details_title" formatted="false">%s (ID:%s)</string>
 
     <string-array name="StatusesLists">
-        <item>Missing Orders,0,#000000</item>
-        <item>Pending,1,#2279ea</item>
-        <item>Processing,2,#03b3da</item>
-        <item>Shipped,3,#8626df</item>
-        <item>Complete,5,#0b860a</item>
-        <item>Canceled,7,#dc0f3a</item>
-        <item>Denied,8,#be1210</item>
-        <item>Canceled Reversal,9,#d94b27</item>
-        <item>Failed,10,#a84476</item>
-        <item>Refunded,11,#ef2d12</item>
-        <item>Reversed,12,#d71135</item>
-        <item>Chargeback,13,#86041c</item>
-        <item>Expired,14,#6b6b6b\"</item>
-        <item>Processed,15,#26b326</item>
-        <item>Voided,16,\"#71716f</item>
+        <item>Pedidos Perdidos,0,#000000</item>
+        <item>Aguardando Pagamento,1,#2279ea</item>
+        <item>Processando,2,#03b3da</item>
+        <item>Despachado,3,#8626df</item>
+        <item>Completo,5,#0b860a</item>
+        <item>Cancelado,7,#dc0f3a</item>
+        <item>Recusado,8,#be1210</item>
+        <item>Cancelamento Revertido,9,#d94b27</item>
+        <item>Falhou,10,#a84476</item>
+        <item>Reembolsado,11,#ef2d12</item>
+        <item>Revertido,12,#d71135</item>
+        <item>Estornado,13,#86041c</item>
+        <item>Expirado,14,#6b6b6b\"</item>
+        <item>Processado,15,#26b326</item>
+        <item>Anulado,16,\"#71716f</item>
     </string-array>
 
 </resources>
