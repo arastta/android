@@ -210,7 +210,7 @@ public class OrderDetailsActivity extends Master2Activity
 
                 OrderID = jsonObject.getString("order_id");
 
-                MenuTitle.setText(String.format(getResources().getString(R.string.details_title), jsonObject.getString("firstname") +" "+ jsonObject.getString("lastname"),jsonObject.getString("order_id")));
+                MenuTitle.setText(jsonObject.getString("firstname") +" "+ jsonObject.getString("lastname"));
 
                 TextView OrderTotalValue = (TextView)findViewById(R.id.OrderTotalValue);
                 OrderTotalValue.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
@@ -279,7 +279,9 @@ public class OrderDetailsActivity extends Master2Activity
                 });
 
                 new getOrderProducts().execute();
+                new getOrderStatuses().execute();
                 new getOrderHistories().execute();
+
             }
             catch (JSONException e)
             {
@@ -291,9 +293,17 @@ public class OrderDetailsActivity extends Master2Activity
             StatusChangeArea = (ScrollView)findViewById(R.id.StatusChangeArea);
 
             StatusSpinner = (Spinner)findViewById(R.id.StatusSpinner);
-            setStatusSpinner();
+            //setStatusSpinner();
 
             final CheckBox NotifyCheckBox = (CheckBox)findViewById(R.id.NotifyCheckBox);
+
+            RelativeLayout NotifyCheckBoxArea = (RelativeLayout)findViewById(R.id.NotifyCheckBoxArea);
+            NotifyCheckBoxArea.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    NotifyCheckBox.setChecked(!NotifyCheckBox.isChecked());
+                }
+            });
 
             TextView NotifyTextView = (TextView)findViewById(R.id.NotifyTextView);
             NotifyTextView.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
@@ -325,7 +335,7 @@ public class OrderDetailsActivity extends Master2Activity
                 {
                     try
                     {
-                        String status = Statuses.get(StatusSpinner.getSelectedItemPosition()).getString("status_id");
+                        String status = Statuses.get(StatusSpinner.getSelectedItemPosition()).getString("order_status_id");
                         Log.e("status",status);
 
                         String notify = NotifyCheckBox.isChecked() ? "1" : "0";
@@ -359,71 +369,6 @@ public class OrderDetailsActivity extends Master2Activity
         {
             super.onBackPressed();
         }
-    }
-
-    public void setStatusSpinner()
-    {
-        Statuses.clear();
-        StatusList.clear();
-
-        String[] rl=this.getResources().getStringArray(R.array.StatusesLists);
-        for(int i=0;i<rl.length;i++)
-        {
-            String[] g=rl[i].split(",");
-            try
-            {
-                JSONObject cc = new JSONObject();
-
-                cc.put("status_name", g[0]);
-                cc.put("status_id", g[1]);
-                cc.put("status_colour", g[2]);
-
-                Statuses.add(cc);
-
-                StatusList.add(g[0]);
-            }
-            catch (JSONException e)
-            {
-                e.printStackTrace();
-            }
-        }
-
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, StatusList)
-        {
-            public View getView(int position, View convertView, ViewGroup parent) {
-                View v = super.getView(position, convertView, parent);
-                ((TextView) v).setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
-                ((TextView) v).setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
-                ((TextView) v).setPadding((int)ConstantsAndFunctions.convertDpToPixel_PixelToDp(context,true,8),0,0,0);
-                //((TextView) v).setGravity(Gravity.CENTER);
-                try
-                {
-                    ((TextView) v).setTextColor(Color.parseColor(Statuses.get(position).getString("status_colour")));
-                }
-                catch (JSONException e){
-                    e.printStackTrace();
-                }
-
-                return v;
-            }
-            public View getDropDownView(int position,  View convertView,  ViewGroup parent) {
-                View v =super.getDropDownView(position, convertView, parent);
-                ((TextView) v).setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
-                ((TextView) v).setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
-                ((TextView) v).setGravity(Gravity.CENTER);
-                try
-                {
-                    ((TextView) v).setTextColor(Color.parseColor(Statuses.get(position).getString("status_colour")));
-                }
-                catch (JSONException e){
-                    e.printStackTrace();
-                }
-                ((TextView) v).setBackgroundColor(getResources().getColor(R.color.colorBg));
-                return v;
-            }
-        };
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        StatusSpinner.setAdapter(dataAdapter);
     }
 
     private class getOrderProducts extends AsyncTask<String, Void, String>
@@ -470,6 +415,141 @@ public class OrderDetailsActivity extends Master2Activity
                         }
                         adapter = new ProductsAdapter(context,arrayList,1);
                         listView.setAdapter(adapter);
+                    }
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+                catch (ClassCastException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private class getOrderStatuses extends AsyncTask<String, Void, String>
+    {
+        String ResultText = "";
+
+        @Override
+        protected void onProgressUpdate(Void... values){}
+
+        @Override
+        protected void onPreExecute(){}
+
+        @Override
+        protected String doInBackground(String... params)
+        {
+            ResultText = ConstantsAndFunctions.getHtml(MasterActivity.username,MasterActivity.password,MasterActivity.url,"orders/statuses");
+
+            return ResultText;
+        }
+
+        @Override
+        protected void onPostExecute(String result)
+        {
+            Log.e(ScreenName+":"+String.valueOf(Thread.currentThread().getStackTrace()[2].getLineNumber()),
+                    ResultText);
+
+            if(ResultText.equals("error"))
+            {
+                Toast.makeText(context, getResources().getString(R.string.connection_failed), Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                try
+                {
+                    JSONArray jsonArray = (JSONArray) new JSONTokener(String.valueOf(ResultText)).nextValue();
+
+                    if (jsonArray.length() > 0)
+                    {
+                        Statuses.clear();
+                        StatusList.clear();
+
+                        Statuses = new ArrayList<JSONObject>();
+                        for (int i = 0; i<jsonArray.length(); i++)
+                        {
+                            Statuses.add(jsonArray.getJSONObject(i));
+
+                            StatusList.add(jsonArray.getJSONObject(i).getString("name"));
+                        }
+
+                        /*
+                        arrayList2.clear();
+                        arrayList2 = new ArrayList<JSONObject>();
+                        for (int i = 0; i<jsonArray.length(); i++)
+                        {
+                            arrayList2.add(jsonArray.getJSONObject(i));
+                        }
+                        adapter2 = new HistoryAdapter(context,arrayList2);
+                        listView2.setAdapter(adapter2);
+                        */
+
+                        /*Statuses.clear();
+                        StatusList.clear();
+
+                        String[] rl=context.getResources().getStringArray(R.array.StatusesLists);
+                        for(int i=0;i<rl.length;i++)
+                        {
+                            String[] g=rl[i].split(",");
+                            try
+                            {
+                                JSONObject cc = new JSONObject();
+
+                                cc.put("status_name", g[0]);
+                                cc.put("status_id", g[1]);
+                                cc.put("status_colour", g[2]);
+
+                                Statuses.add(cc);
+
+                                StatusList.add(g[0]);
+                            }
+                            catch (JSONException e)
+                            {
+                                e.printStackTrace();
+                            }
+                        }*/
+
+                        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context,android.R.layout.simple_spinner_item, StatusList)
+                        {
+                            public View getView(int position, View convertView, ViewGroup parent) {
+                                View v = super.getView(position, convertView, parent);
+                                ((TextView) v).setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
+                                ((TextView) v).setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                                ((TextView) v).setPadding((int)ConstantsAndFunctions.convertDpToPixel_PixelToDp(context,true,8),0,0,0);
+                                //((TextView) v).setGravity(Gravity.CENTER);
+                                try
+                                {
+                                    ((TextView) v).setTextColor(ConstantsAndFunctions.getStatusColor(context,Statuses.get(position).getInt("order_status_id")));
+                                    //((TextView) v).setTextColor(Color.parseColor(Statuses.get(position).getString("status_colour")));
+                                }
+                                catch (JSONException e){
+                                    e.printStackTrace();
+                                }
+
+                                return v;
+                            }
+                            public View getDropDownView(int position,  View convertView,  ViewGroup parent) {
+                                View v =super.getDropDownView(position, convertView, parent);
+                                ((TextView) v).setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
+                                ((TextView) v).setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+                                ((TextView) v).setGravity(Gravity.CENTER);
+                                try
+                                {
+                                    ((TextView) v).setTextColor(ConstantsAndFunctions.getStatusColor(context,Statuses.get(position).getInt("order_status_id")));
+                                    //((TextView) v).setTextColor(Color.parseColor(Statuses.get(position).getString("status_colour")));
+                                }
+                                catch (JSONException e){
+                                    e.printStackTrace();
+                                }
+                                ((TextView) v).setBackgroundColor(getResources().getColor(R.color.colorBg));
+                                return v;
+                            }
+                        };
+                        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        StatusSpinner.setAdapter(dataAdapter);
                     }
                 }
                 catch (JSONException e)
@@ -560,9 +640,9 @@ public class OrderDetailsActivity extends Master2Activity
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
 
-                URL url = new URL(ConstantsAndFunctions.getHttpOrHttps()+MasterActivity.url + "/api/"+ "orders/"+OrderID+"/histories");
+                URL url = new URL(MasterActivity.url + "/api/"+ "orders/"+OrderID+"/histories");
 
-                if(ConstantsAndFunctions.getHttpOrHttps().equals("https://"))
+                if(MasterActivity.url.startsWith("https"))
                 {
                     //TLS
 
@@ -655,8 +735,8 @@ public class OrderDetailsActivity extends Master2Activity
 
             try
             {
-                int id = Statuses.get(StatusSpinner.getSelectedItemPosition()).getInt("status_id");
-                String status = Statuses.get(StatusSpinner.getSelectedItemPosition()).getString("status_name");
+                int id = Statuses.get(StatusSpinner.getSelectedItemPosition()).getInt("order_status_id");
+                String status = Statuses.get(StatusSpinner.getSelectedItemPosition()).getString("name");
                 //String color = Statuses.get(StatusSpinner.getSelectedItemPosition()).getString("status_colour");
 
                 OrderStatusIcon.getBackground().mutate().setColorFilter(ConstantsAndFunctions.getStatusColor(context, id), PorterDuff.Mode.MULTIPLY);

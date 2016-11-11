@@ -133,9 +133,9 @@ public class ProductsAdapter extends ArrayAdapter<JSONObject>
 
 			String avatarUrl = "";
 			if(type == 0)
-				avatarUrl = ConstantsAndFunctions.getHttpOrHttps() + MasterActivity.url +"/"+ arrayList.get(position).getJSONArray("images").getString(0);
+				avatarUrl = MasterActivity.url +"/"+ arrayList.get(position).getJSONArray("images").getString(0);
 			else
-				avatarUrl = ConstantsAndFunctions.getHttpOrHttps() + MasterActivity.url +"/"+ arrayList.get(position).getString("image");
+				avatarUrl = MasterActivity.url +"/"+ arrayList.get(position).getString("image");
 
 			ImageView ProductImage = (ImageView)rowView.findViewById(R.id.ProductImage);
 			ImageOptions avatarOptions = new ImageOptions();

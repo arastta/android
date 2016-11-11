@@ -96,24 +96,21 @@
     <string name="payment_method">Método de Pagamento:</string>
     <string name="comment">Comentário:</string>
 
-    <string name="details_title" formatted="false">%s (ID:%s)</string>
-
-    <string-array name="StatusesLists">
-        <item>Pedidos Perdidos,0,#000000</item>
-        <item>Aguardando Pagamento,1,#2279ea</item>
-        <item>Processando,2,#03b3da</item>
-        <item>Despachado,3,#8626df</item>
-        <item>Completo,5,#0b860a</item>
-        <item>Cancelado,7,#dc0f3a</item>
-        <item>Recusado,8,#be1210</item>
-        <item>Cancelamento Revertido,9,#d94b27</item>
-        <item>Falhou,10,#a84476</item>
-        <item>Reembolsado,11,#ef2d12</item>
-        <item>Revertido,12,#d71135</item>
-        <item>Estornado,13,#86041c</item>
-        <item>Expirado,14,#6b6b6b\"</item>
-        <item>Processado,15,#26b326</item>
-        <item>Anulado,16,\"#71716f</item>
+    <string-array name="Periods">
+        <item>Today</item>
+        <item>This Week</item>
+        <item>This Month</item>
+        <item>This Quarter</item>
+        <item>This Year</item>
     </string-array>
+
+    <string name="done">Done</string>
+    <string name="order_statuses">Order Statuses</string>
+    <string name="widget_configure">Configure</string>
+    <string name="widget_update">Update</string>
+    <string name="widget_store_name">Store Name</string>
+    <string name="widget_period">Period</string>
+    <string name="widget_order_status">Order Status</string>
+    <string name="widget_choose">Choose the order status</string>
 
 </resources>

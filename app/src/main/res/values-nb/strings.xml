@@ -96,24 +96,21 @@
     <string name="payment_method">Betalingsmåte:</string>
     <string name="comment">Kommentar:</string>
 
-    <string name="details_title" formatted="false">%s (Nr:%s)</string>
-
-    <string-array name="StatusesLists">
-        <item>Manglende bestillinger,0,#000000</item>
-        <item>Venter,1,#2279ea</item>
-        <item>Behandles,2,#03b3da</item>
-        <item>Sendt/Levert,3,#8626df</item>
-        <item>Fullført,5,#0b860a</item>
-        <item>Annullert,7,#dc0f3a</item>
-        <item>Avvist,8,#be1210</item>
-        <item>Avbrutt tilbakeførsel,9,#d94b27</item>
-        <item>Feilet,10,#a84476</item>
-        <item>Refundert,11,#ef2d12</item>
-        <item>Tilbakeført,12,#d71135</item>
-        <item>Tilbakeførsel,13,#86041c</item>
-        <item>Utløpt,14,#6b6b6b\"</item>
-        <item>Oppdatert,15,#26b326</item>
-        <item>Ugyldig,16,\"#71716f</item>
+    <string-array name="Periods">
+        <item>Today</item>
+        <item>This Week</item>
+        <item>This Month</item>
+        <item>This Quarter</item>
+        <item>This Year</item>
     </string-array>
+
+    <string name="done">Done</string>
+    <string name="order_statuses">Order Statuses</string>
+    <string name="widget_configure">Configure</string>
+    <string name="widget_update">Update</string>
+    <string name="widget_store_name">Store Name</string>
+    <string name="widget_period">Period</string>
+    <string name="widget_order_status">Order Status</string>
+    <string name="widget_choose">Choose the order status</string>
 
 </resources>

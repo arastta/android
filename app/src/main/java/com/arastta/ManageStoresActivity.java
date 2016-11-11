@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -72,8 +73,8 @@ public class ManageStoresActivity extends Master2Activity
         TextView StoreTitle = (TextView)footerView.findViewById(R.id.StoreTitle);
         StoreTitle.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
 
-        ImageButton StoreButton = (ImageButton)footerView.findViewById(R.id.StoreButton);
-        StoreButton.setOnClickListener(new View.OnClickListener()
+        RelativeLayout StoreItem = (RelativeLayout)footerView.findViewById(R.id.StoreItem);
+        StoreItem.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)

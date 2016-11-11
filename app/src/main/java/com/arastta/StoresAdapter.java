@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -49,7 +51,7 @@ public class StoresAdapter extends ArrayAdapter<JSONObject>
 			StoreTitle.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
 			StoreTitle.setText(arrayList.get(position).getString("store_name"));
 
-			ImageButton StoreButton = (ImageButton)rowView.findViewById(R.id.StoreButton);
+			ImageView StoreButton = (ImageView)rowView.findViewById(R.id.StoreButton);
 			switch (type)
 			{
 				case 0:
@@ -59,7 +61,9 @@ public class StoresAdapter extends ArrayAdapter<JSONObject>
 					StoreButton.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.menu_settings));
 					break;
 			}
-			StoreButton.setOnClickListener(new View.OnClickListener()
+
+			RelativeLayout StoreItem = (RelativeLayout)rowView.findViewById(R.id.StoreItem);
+			StoreItem.setOnClickListener(new View.OnClickListener()
 			{
 				@Override
 				public void onClick(View v)
@@ -73,7 +77,7 @@ public class StoresAdapter extends ArrayAdapter<JSONObject>
 						case 0:
 							Log.i("Obj",arrayList.get(position).toString());
 
-							ConstantsAndFunctions.writeToFile(ManageStoresActivity.savePath, 0, arrayList.get(position).toString());
+							ConstantsAndFunctions.writeToFile(context.getFilesDir().toString(), 0, arrayList.get(position).toString());
 
 							switch (MasterActivity.activePage)
 							{

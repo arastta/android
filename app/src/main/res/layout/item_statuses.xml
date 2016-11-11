@@ -5,30 +5,30 @@
 	android:background="@null" >
 
 	<RelativeLayout
-		android:id="@+id/StoreItem"
+		android:id="@+id/StatusesItem"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:background="@android:color/white"
-		android:padding="8dp"
-		android:clickable="true">
+		android:layout_height="36dp"
+		android:background="@drawable/shadow_bg" >
 
 		<TextView
-			android:id="@+id/StoreTitle"
+			android:id="@+id/StatusName"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
 			android:layout_centerVertical="true"
 			android:layout_marginLeft="8dp"
-			android:gravity="center_vertical"
-			android:textColor="@color/colorPrimary"
-			android:textSize="12dp"
-			android:text="@string/add_store"/>
+			android:textColor="@color/colorText"
+			android:textSize="12dp"/>
 
-		<ImageView
-			android:id="@+id/StoreButton"
+		<CheckBox
+			android:id="@+id/StatusCheckBox"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_alignParentRight="true"
-			android:background="@drawable/icon_plus"/>
+			android:layout_centerVertical="true"
+			android:layout_marginRight="8dp"
+			android:button="@drawable/checkbox"
+			android:checked="true"/>
 
 	</RelativeLayout>
 

@@ -15,14 +15,22 @@ import android.widget.Toast;
 import com.arastta.GraphLib.Line;
 import com.arastta.GraphLib.LineGraph;
 import com.arastta.GraphLib.LinePoint;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.StringTokenizer;
 
 public class DashboardActivity extends MasterActivity
 {
@@ -51,6 +59,7 @@ public class DashboardActivity extends MasterActivity
     TextView TabText3;
 
     LineGraph li;
+    GraphView graphView;
 
     void resetAct()
     {
@@ -97,6 +106,9 @@ public class DashboardActivity extends MasterActivity
         ScreenName = "DashboardActivity";
 
         li = (LineGraph)findViewById(R.id.linegraph);
+        graphView = (GraphView) findViewById(R.id.graphView);
+
+
 
         //unUsed
         TextView TextViewSales = (TextView)findViewById(R.id.TextViewSales);
@@ -278,63 +290,101 @@ public class DashboardActivity extends MasterActivity
                     ValueCustomers.setText(customers.getString("number"));
                     ValueProducts.setText(products.getString("number"));
 
-                    JSONArray daily = orders.getJSONArray("daily");
-                    ArrayList<Integer> number = new ArrayList<Integer>();
-                    ArrayList<Integer> prices = new ArrayList<Integer>();
-
                     int totalValue = 0;
                     int maxValue = 0;
                     float orderValue = 0;
                     float orderNumber = 0;
-                    for(int i=0; i<daily.length();i++)
+
+                    ArrayList<Integer> number = new ArrayList<Integer>();
+                    ArrayList<Integer> prices = new ArrayList<Integer>();
+                    JSONArray daily = orders.getJSONArray("daily");
+
+                    if(daily.length() > 0)
                     {
-                        orderNumber += daily.getJSONObject(i).getInt("number");
-                        number.add(daily.getJSONObject(i).getInt("number"));
+                        Log.i("daily.length",String.valueOf(daily.length()) + " day");
+                        for(int i=0; i<daily.length();i++)
+                        {
+                            orderNumber += daily.getJSONObject(i).getInt("number");
+                            number.add(daily.getJSONObject(i).getInt("number"));
+                            try
+                            {
+                                orderValue += daily.getJSONObject(i).getInt("price");
+                                prices.add(daily.getJSONObject(i).getInt("price"));
+
+                                totalValue += daily.getJSONObject(i).getInt("price");
+
+                                if(maxValue < daily.getJSONObject(i).getInt("price"))
+                                    maxValue = daily.getJSONObject(i).getInt("price");
+                            }
+                            catch (JSONException e)
+                            {
+                                prices.add(0);
+                            }
+                        }
+                        Log.i("orderValue",String.valueOf(orderValue));
+                        Log.i("orderNumber",String.valueOf(orderNumber));
+
+                        Log.i("totalValue",String.valueOf(totalValue));
+                        Log.i("maxValue",String.valueOf(maxValue));
+
+
+                        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>();
+                        series.setColor(getResources().getColor(R.color.colorPrimary));
                         try
                         {
-                            orderValue += daily.getJSONObject(i).getInt("price");
-                            prices.add(daily.getJSONObject(i).getInt("price"));
-
-                            totalValue += daily.getJSONObject(i).getInt("price");
-
-                            if(maxValue < daily.getJSONObject(i).getInt("price"))
-                                maxValue = daily.getJSONObject(i).getInt("price");
+                            if (prices.size() > 0)
+                            {
+                                series.appendData(new DataPoint(0, 0), false, maxValue);
+                                for (int j = 0; j < prices.size(); j++)
+                                {
+                                    series.appendData(new DataPoint(j + 1, prices.get(j)), false, maxValue);
+                                }
+                            }
                         }
-                        catch (JSONException e)
+                        catch (IndexOutOfBoundsException e){
+                            e.printStackTrace();
+                        }
+
+                        graphView.getViewport().setXAxisBoundsManual(true);
+                        graphView.getViewport().setMinX(0);
+                        graphView.getViewport().setMaxX(daily.length());
+                        graphView.getGridLabelRenderer().setGridColor(getResources().getColor(R.color.colorAccent));
+                        graphView.getGridLabelRenderer().setVerticalLabelsColor(getResources().getColor(R.color.colorAccent));
+                        graphView.getGridLabelRenderer().setHorizontalLabelsColor(getResources().getColor(R.color.colorAccent));
+                        graphView.removeAllSeries();
+                        graphView.addSeries(series);
+
+/*
+                        //https://github.com/Androguide/HoloGraphLibrary
+                        Line l = new Line();
+                        Log.i("prices",String.valueOf(prices.size()));
+
+                        for (int j=0;j<prices.size();j++)
                         {
-                            prices.add(0);
+                            LinePoint p = new LinePoint();
+                            p.setX(j);
+                            p.setY(prices.get(j));
+                            l.addPoint(p);
                         }
+                        l.setColor(getResources().getColor(R.color.colorPrimary));
+
+                        li.showHorizontalGrid(true);
+                        li.removeAllLines();
+                        li.addLine(l);
+                        li.setRangeY(0, maxValue + ConstantsAndFunctions.convertDpToPixel_PixelToDp(context,true,8));
+                        li.setLineToFill(0);//1 fill empty :S
+*/
+                        float customerNumber = customers.getInt("number");
+                        if(orderValue != 0)
+                            DashboardDetailValue1.setText(String.valueOf(Math.round(Float.valueOf(orderValue/day)*10.0)/10.0));//100
+                        if(orderNumber != 0)
+                            DashboardDetailValue2.setText(String.valueOf(Math.round(Float.valueOf(orderNumber/day)*10.0)/10.0));
+                        if(customerNumber != 0)
+                            DashboardDetailValue3.setText(String.valueOf(Math.round(Float.valueOf(customerNumber/day)*10.0)/10.0));
+                        if(orderNumber != 0  && customerNumber != 0)
+                            DashboardDetailValue4.setText(String.valueOf(Math.round(Float.valueOf(orderValue/customerNumber)*10.0)/10.0));
                     }
-                    Log.i("orderValue",String.valueOf(orderValue));
-                    Log.i("orderNumber",String.valueOf(orderNumber));
 
-                    Log.i("totalValue",String.valueOf(totalValue));
-
-                    //https://github.com/Androguide/HoloGraphLibrary
-                    Line l = new Line();
-                    for (int j=0;j<prices.size();j++)
-                    {
-                        LinePoint p = new LinePoint();
-                        p.setX(j);
-                        p.setY(prices.get(j));
-                        l.addPoint(p);
-                    }
-                    l.setColor(getResources().getColor(R.color.colorPrimary));
-
-                    li.removeAllLines();
-                    li.addLine(l);
-                    li.setRangeY(0, maxValue + ConstantsAndFunctions.convertDpToPixel_PixelToDp(context,true,8));
-                    li.setLineToFill(0);//1 fill empty :S
-
-                    float customerNumber = customers.getInt("number");
-                    if(orderValue != 0)
-                        DashboardDetailValue1.setText(String.valueOf(Math.round(Float.valueOf(orderValue/day)*10.0)/10.0));//100
-                    if(orderNumber != 0)
-                        DashboardDetailValue2.setText(String.valueOf(Math.round(Float.valueOf(orderNumber/day)*10.0)/10.0));
-                    if(customerNumber != 0)
-                        DashboardDetailValue3.setText(String.valueOf(Math.round(Float.valueOf(customerNumber/day)*10.0)/10.0));
-                    if(orderNumber != 0  && customerNumber != 0)
-                        DashboardDetailValue4.setText(String.valueOf(Math.round(Float.valueOf(orderValue/customerNumber)*10.0)/10.0));
                 }
                 catch (JSONException e)
                 {

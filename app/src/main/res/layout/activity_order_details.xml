@@ -561,7 +561,7 @@
                         android:id="@+id/StatusSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:background="@color/colorBg"/>
+                        android:background="@null"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -574,6 +574,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/NotifyCheckBoxArea"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"

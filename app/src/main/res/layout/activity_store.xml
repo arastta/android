@@ -88,6 +88,7 @@
                     android:layout_marginRight="8dp" />
 
                 <RelativeLayout
+                    android:id="@+id/CheckBoxTitleArea"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="18dp"
@@ -158,6 +159,7 @@
                     android:layout_marginRight="8dp"/>
 
                 <RelativeLayout
+                    android:id="@+id/CheckBoxUrlArea"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="18dp"
@@ -278,6 +280,7 @@
                     android:text="@string/NotTitle"/>
 
                 <RelativeLayout
+                    android:id="@+id/CheckBox3Area"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="18dp"
@@ -293,6 +296,7 @@
                         android:text="@string/checkboxTitle3"/>
 
                     <CheckBox
+                        android:id="@+id/CheckBox3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -310,6 +314,7 @@
                     android:layout_marginRight="8dp"/>
 
                 <RelativeLayout
+                    android:id="@+id/CheckBox4Area"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="18dp"
@@ -325,6 +330,7 @@
                         android:text="@string/checkboxTitle4"/>
 
                     <CheckBox
+                        android:id="@+id/CheckBox4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -342,6 +348,7 @@
                     android:layout_marginRight="8dp"/>
 
                 <RelativeLayout
+                    android:id="@+id/CheckBox5Area"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="18dp"
@@ -357,6 +364,7 @@
                         android:text="@string/checkboxTitle5"/>
 
                     <CheckBox
+                        android:id="@+id/CheckBox5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -391,6 +399,7 @@
                     android:text="@string/ListTitle"/>
 
                 <RelativeLayout
+                    android:id="@+id/CheckBox6Area"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="18dp"
@@ -406,6 +415,7 @@
                         android:text="@string/checkboxTitle6"/>
 
                     <CheckBox
+                        android:id="@+id/CheckBox6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -423,6 +433,7 @@
                     android:layout_marginRight="8dp"/>
 
                 <RelativeLayout
+                    android:id="@+id/CheckBox7Area"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="18dp"
@@ -438,6 +449,7 @@
                         android:text="@string/checkboxTitle7"/>
 
                     <CheckBox
+                        android:id="@+id/CheckBox7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"

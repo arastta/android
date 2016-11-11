@@ -513,7 +513,7 @@ public class MasterActivity extends Activity
             username = activeStore.getString("username");
             password = activeStore.getString("password");
 
-            String avatarUrl = ConstantsAndFunctions.getHttpOrHttps() + activeStore.getString("store_url") +"/"+ activeStore.getString("config_image");
+            String avatarUrl = activeStore.getString("store_url") +"/"+ activeStore.getString("config_image");
 
             ImageOptions avatarOptions = new ImageOptions();
             //avatarOptions.round = 999;

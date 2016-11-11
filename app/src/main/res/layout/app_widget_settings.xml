@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBg">
+
+    <TextView
+        android:id="@+id/WidgetSettingsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="15dp"
+        android:text="@string/widget_configure"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/WidgetSettingsButton"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="15dp"
+        android:text="@string/widget_update" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="12dp"
+        android:orientation="vertical"
+        android:layout_below="@+id/WidgetSettingsTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/WidgetOrderCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.25"
+                android:drawableTop="@drawable/widget_order"
+                android:drawablePadding="4dp"
+                android:gravity="center"
+                android:textColor="@color/colorWidgetYellow"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/WidgetUserCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.25"
+                android:drawableTop="@drawable/widget_user"
+                android:drawablePadding="4dp"
+                android:gravity="center"
+                android:textColor="@color/colorWidgetBlue"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/WidgetTotal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/widget_coin"
+                android:drawablePadding="4dp"
+                android:gravity="center"
+                android:textColor="@color/colorWidgetGreen"
+                android:textSize="15dp"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="6dp"
+            android:background="@color/colorAccent"/>
+
+        <TextView
+            android:id="@+id/WidgetSettingsTextStoreName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/colorAccent"
+            android:textSize="12dp"
+            android:text="@string/widget_store_name" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/spinner_bg">
+
+            <Spinner
+                android:id="@+id/WidgetSettingsSpinnerStore"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:background="@null"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dp"
+                android:tint="@color/colorAccent"
+                android:src="@drawable/menu_store"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/WidgetSettingsTextOrderStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/colorAccent"
+            android:textSize="12dp"
+            android:text="@string/widget_order_status" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/spinner_bg">
+
+            <TextView
+                android:id="@+id/WidgetSettingsTextStatus"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginRight="36dp"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:paddingLeft="8dp"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="@android:color/white"
+                android:textSize="15dp"
+                android:text="@string/widget_choose"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dp"
+                android:tint="@color/colorAccent"
+                android:src="@drawable/menu_store"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/WidgetSettingsTextPeriod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/colorAccent"
+            android:textSize="12dp"
+            android:text="@string/widget_period" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/spinner_bg">
+
+            <Spinner
+                android:id="@+id/WidgetSettingsSpinnerPeriod"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:background="@null"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dp"
+                android:tint="@color/colorAccent"
+                android:src="@drawable/menu_store"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/StatusesLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorHint"
+        android:clickable="true"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="240dp"
+            android:layout_height="360dp"
+            android:layout_centerInParent="true"
+            android:clickable="true"
+            android:background="@color/colorBg">
+
+            <RelativeLayout
+                android:id="@+id/StatusesLayoutTop"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:background="@color/colorAccent">
+
+                <TextView
+                    android:id="@+id/StatusesLayoutTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dp"
+                    android:background="@color/colorAccent"
+                    android:textColor="@android:color/white"
+                    android:textSize="15dp"
+                    android:text="@string/order_statuses" />
+
+                <CheckBox
+                    android:id="@+id/StatusesLayoutCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="8dp"
+                    android:button="@drawable/checkbox"
+                    android:checked="true"/>
+
+            </RelativeLayout>
+
+            <ListView
+                android:id="@+id/StatusesLV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/StatusesLayoutTop"
+                android:layout_above="@+id/StatusesLayoutDone"
+                android:background="@color/colorBg"
+                android:animationCache="false"
+                android:scrollingCache="false"
+                android:scrollbars="none"
+                android:fadingEdgeLength="0dp"
+                android:dividerHeight="0dp"
+                android:divider="@null" />
+
+            <TextView
+                android:id="@+id/StatusesLayoutDone"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorAccent"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="15dp"
+                android:text="@string/done"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

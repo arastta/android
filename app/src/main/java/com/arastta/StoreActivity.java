@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -108,6 +109,59 @@ public class StoreActivity extends Activity
         TextViewCB6.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
         TextView TextViewCB7 = (TextView)findViewById(R.id.TextViewCB7);
         TextViewCB7.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
+
+        final CheckBox CheckBox3 = (CheckBox)findViewById(R.id.CheckBox3);
+        final CheckBox CheckBox4 = (CheckBox)findViewById(R.id.CheckBox4);
+        final CheckBox CheckBox5 = (CheckBox)findViewById(R.id.CheckBox5);
+        final CheckBox CheckBox6 = (CheckBox)findViewById(R.id.CheckBox6);
+        final CheckBox CheckBox7 = (CheckBox)findViewById(R.id.CheckBox7);
+
+        RelativeLayout CheckBox3Area = (RelativeLayout)findViewById(R.id.CheckBox3Area);
+        CheckBox3Area.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckBox3.setChecked(!CheckBox3.isChecked());
+            }
+        });
+        RelativeLayout CheckBox4Area = (RelativeLayout)findViewById(R.id.CheckBox4Area);
+        CheckBox4Area.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckBox4.setChecked(!CheckBox4.isChecked());
+            }
+        });
+        RelativeLayout CheckBox5Area = (RelativeLayout)findViewById(R.id.CheckBox5Area);
+        CheckBox5Area.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckBox5.setChecked(!CheckBox5.isChecked());
+            }
+        });
+        RelativeLayout CheckBox6Area = (RelativeLayout)findViewById(R.id.CheckBox6Area);
+        CheckBox6Area.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckBox6.setChecked(!CheckBox6.isChecked());
+            }
+        });
+        RelativeLayout CheckBox7Area = (RelativeLayout)findViewById(R.id.CheckBox7Area);
+        CheckBox7Area.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckBox7.setChecked(!CheckBox7.isChecked());
+            }
+        });
+
+        /*
+        if (checkBox.isChecked()) {
+             Toast.makeText(getApplicationContext(), "You accepted the Terms", Toast.LENGTH_SHORT);
+}
+         else {
+             Toast.makeText(getApplicationContext(), "You haven't accepted the Terms", Toast.LENGTH_SHORT);
+}
+         */
+
+
         //
 
         ImageButton TopBack = (ImageButton)findViewById(R.id.TopBack);
@@ -218,8 +272,23 @@ public class StoreActivity extends Activity
         EditTextPassword = (EditText)findViewById(R.id.EditTextPassword);
         EditTextPassword.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
 
-        CheckBoxTitle = (CheckBox)findViewById(R.id.CheckBoxTitle);
         CheckBoxUrl = (CheckBox)findViewById(R.id.CheckBoxUrl);
+        CheckBoxTitle = (CheckBox)findViewById(R.id.CheckBoxTitle);
+
+        RelativeLayout CheckBoxUrlArea = (RelativeLayout)findViewById(R.id.CheckBoxUrlArea);
+        CheckBoxUrlArea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckBoxUrl.setChecked(!CheckBoxUrl.isChecked());
+            }
+        });
+        RelativeLayout CheckBoxTitleArea = (RelativeLayout)findViewById(R.id.CheckBoxTitleArea);
+        CheckBoxTitleArea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckBoxTitle.setChecked(!CheckBoxTitle.isChecked());
+            }
+        });
 
         TextView SaveButton = (TextView)findViewById(R.id.SaveButton);
         SaveButton.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
@@ -243,10 +312,13 @@ public class StoreActivity extends Activity
                         {
                             Working = true;
 
+                            String protocol = "http://";
+                            if(CheckBoxUrl.isChecked())protocol = "https://";
+
                             String username = EditTextUsername.getText().toString().trim();
                             String password = EditTextPassword.getText().toString().trim();
                             String title = EditTextStoreTitle.getText().toString().trim();
-                            String xUrl = EditTextStoreURL.getText().toString().trim();
+                            String xUrl = protocol + EditTextStoreURL.getText().toString().trim();
 
                             if(ConstantsAndFunctions.NetworkIsAvailable(context))
                                 new UserLogin().execute(xUrl,username,password,title);

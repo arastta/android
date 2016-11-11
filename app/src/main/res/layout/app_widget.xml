@@ -1,0 +1,125 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_bg" >
+
+    <TextView
+        android:id="@+id/WidgetStoreName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="12dp"
+        android:drawableLeft="@drawable/widget_logo"
+        android:drawablePadding="8dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="12dp"
+        android:text="00"/>
+
+    <TextView
+        android:id="@+id/WidgetFilterName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/colorAccent"
+        android:textSize="12dp"
+        android:text="00"/>
+
+    <TextView
+        android:id="@+id/WidgetDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/WidgetRight"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="right"
+        android:textColor="@color/colorAccent"
+        android:textSize="12dp"
+        android:text="00"/>
+
+    <LinearLayout
+        android:id="@+id/WidgetIcons"
+        android:layout_width="36dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:orientation="vertical" >
+
+        <ImageButton
+            android:id="@+id/WidgetSettings"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/widget_settings"
+            android:background="@null"
+            android:contentDescription="@string/app_name"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorHint"/>
+
+        <ImageButton
+            android:id="@+id/WidgetRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/widget_refresh"
+            android:background="@null"
+            android:contentDescription="@string/app_name"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/WidgetRight"
+        android:layout_width="0.5dp"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@+id/WidgetIcons"
+        android:background="@color/colorHint"/>
+
+    <LinearLayout
+        android:id="@+id/WidgetTexts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/WidgetRight"
+        android:layout_marginLeft="12dp"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/WidgetOrderCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.25"
+            android:drawableLeft="@drawable/widget_order"
+            android:drawablePadding="4dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/colorWidgetYellow"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/WidgetUserCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.25"
+            android:drawableLeft="@drawable/widget_user"
+            android:drawablePadding="4dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/colorWidgetBlue"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/WidgetTotal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/widget_coin"
+            android:drawablePadding="4dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/colorWidgetGreen"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

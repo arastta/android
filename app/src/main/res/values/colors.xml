@@ -19,6 +19,13 @@
     <color name="colorTabEnd">#c8c8c8</color>
     <color name="colorTabActive">#80008db8</color>
 
+
+    <color name="colorSpinner">#9958595b</color>
+
+    <color name="colorWidgetYellow">#fac800</color>
+    <color name="colorWidgetBlue">#00c8fa</color>
+    <color name="colorWidgetGreen">#32c832</color>
+
     <color name="colorStatus01">#2279ea</color>
     <color name="colorStatus02">#03b3da</color>
     <color name="colorStatus03">#8626df</color>

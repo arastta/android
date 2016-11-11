@@ -96,24 +96,21 @@
     <string name="payment_method">Ödeme Metodu:</string>
     <string name="comment">Yorum:</string>
 
-    <string name="details_title" formatted="false">%s (No:%s)</string>
-
-    <string-array name="StatusesLists" >
-        <item>Kayıp Siparişler,0,#000000</item>
-        <item>Bekleme,1,#2279ea</item>
-        <item>İşleniyor,2,#03b3da</item>
-        <item>Kargolandı,3,#8626df</item>
-        <item>Tamamlandı,5,#0b860a</item>
-        <item>İptal Edildi,7,#dc0f3a</item>
-        <item>Engellendi,8,#be1210</item>
-        <item>İptal Geri Alındı,9,#d94b27</item>
-        <item>Başarısız,10,#a84476</item>
-        <item>İade Edildi,11,#ef2d12</item>
-        <item>Geri Alındı,12,#d71135</item>
-        <item>Geri Ödeme,13,#86041c</item>
-        <item>Süresi Doldu,14,#6b6b6b"</item>
-        <item>İşlendi,15,#26b326</item>
-        <item>Hükümsüz,16,"#71716f</item>
+    <string-array name="Periods">
+        <item>Bugün</item>
+        <item>Bu Hafta</item>
+        <item>Bu Ay</item>
+        <item>Bu Çeyrek</item>
+        <item>Bu Yıl</item>
     </string-array>
+
+    <string name="done">Tamam</string>
+    <string name="order_statuses">Sipariş Durumları</string>
+    <string name="widget_configure">Ayarla</string>
+    <string name="widget_update">Güncelle</string>
+    <string name="widget_store_name">Store Adı</string>
+    <string name="widget_period">Aralık</string>
+    <string name="widget_order_status">Sipariş Durumu</string>
+    <string name="widget_choose">Sipariş Durumu Seçiniz.</string>
 
 </resources>

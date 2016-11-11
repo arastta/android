@@ -15,6 +15,7 @@ import android.telephony.TelephonyManager;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -90,9 +91,9 @@ public class ConstantsAndFunctions extends Service
 
 		File logFile = new File(savePath, filenames[file]);
 
-		Log.i("deleteToFile",savePath + filenames[file] + " = " + String.valueOf(logFile.exists()));
-
 		if(logFile.exists())logFile.delete();
+
+		Log.i("deleteToFile",savePath + filenames[file]);
 	}
 
 	public static String readToFile(String savePath, int file)
@@ -134,17 +135,14 @@ public class ConstantsAndFunctions extends Service
 
 			if (logFile.exists())logFile.delete();
 			
-			if (!logFile.exists())
+			try
 			{
-				try
-				{
-					logFile.createNewFile();
-				}
-				catch (IOException e)
-				{
-					Log.i("IOException1","writeToFile");
-					e.printStackTrace();
-				}
+				logFile.createNewFile();
+			}
+			catch (IOException e)
+			{
+				Log.i("IOException1","writeToFile");
+				e.printStackTrace();
 			}
 			
 			try
@@ -188,7 +186,7 @@ public class ConstantsAndFunctions extends Service
 	    
 	    try
 	    {
-            String link = getHttpOrHttps()+xUrl+"/index.php/api/"+functions;
+            String link = xUrl+"/index.php/api/"+functions;
 			Log.e("getHtml", link);
 
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -508,9 +506,49 @@ public class ConstantsAndFunctions extends Service
 				day_of_month = "01";
 				month = "01";
 				break;
+			case 7:
+				Calendar cal = Calendar.getInstance();
+				cal.set(Calendar.HOUR_OF_DAY, 0); // ! clear would not reset the hour of day !
+				cal.clear(Calendar.MINUTE);
+				cal.clear(Calendar.SECOND);
+				cal.clear(Calendar.MILLISECOND);
+
+				cal.set(Calendar.DAY_OF_WEEK, cal.getFirstDayOfWeek());
+				System.out.println("Start of this week:       " + cal.getTime());
+
+				day_of_month = ConstantsAndFunctions.addZero(cal.get(Calendar.DAY_OF_MONTH));
+				month = ConstantsAndFunctions.addZero(cal.get(Calendar.MONTH)+1);
+				break;
+			case 90:
+				day_of_month = "01";
+				switch (calendar.get(Calendar.MONTH)+1){
+					case 1:
+					case 2:
+					case 3:
+						month = "01";
+						break;
+					case 4:
+					case 5:
+					case 6:
+						month = "04";
+						break;
+					case 7:
+					case 8:
+					case 9:
+						month = "07";
+						break;
+					case 10:
+					case 11:
+					case 12:
+						month = "10";
+						break;
+
+				}
+				break;
 		}
 		String from = year +"-"+ month +"-"+ day_of_month;
 		Log.e("getFromDate",from);
+		if(day == 1)from = getTodayDate();
 		return from;
 	}
 
@@ -525,20 +563,4 @@ public class ConstantsAndFunctions extends Service
         return from;
     }
 
-    public static String getHttpOrHttps()
-    {
-        String text = "http://";
-        try
-        {
-            JSONObject activeStore = new JSONObject(readToFile(MasterActivity.savePath,0));
-            if(activeStore.getString("connection_type").equals("true")){
-                text = "https://";
-            }
-        }
-        catch (JSONException e)
-        {
-            e.printStackTrace();
-        }
-        return text;
-    }
 }

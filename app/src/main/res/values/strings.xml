@@ -10,15 +10,15 @@
 
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
-    <string name="enable">Enable</string>
-    <string name="disable">Disable</string>
+    <string name="enable">Enabled</string>
+    <string name="disable">Disabled</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="warning">Warning</string>
 
     <string name="delete_store">Are you sure you want to remove the store?</string>
 
-    <string name="get_arastta_cloud">Get Arastta Cloud</string>
+    <string name="get_arastta_cloud">Try Arastta Cloud</string>
 
     <string name="new_store">New Store</string>
     <string name="StoreTitle">Store Title</string>
@@ -96,24 +96,21 @@
     <string name="payment_method">Payment Method:</string>
     <string name="comment">Comment:</string>
 
-    <string name="details_title" formatted="false">%s (ID:%s)</string>
-
-    <string-array name="StatusesLists" >
-        <item>Missing Orders,0,#000000</item>
-        <item>Pending,1,#2279ea</item>
-        <item>Processing,2,#03b3da</item>
-        <item>Shipped,3,#8626df</item>
-        <item>Complete,5,#0b860a</item>
-        <item>Canceled,7,#dc0f3a</item>
-        <item>Denied,8,#be1210</item>
-        <item>Canceled Reversal,9,#d94b27</item>
-        <item>Failed,10,#a84476</item>
-        <item>Refunded,11,#ef2d12</item>
-        <item>Reversed,12,#d71135</item>
-        <item>Chargeback,13,#86041c</item>
-        <item>Expired,14,#6b6b6b"</item>
-        <item>Processed,15,#26b326</item>
-        <item>Voided,16,"#71716f</item>
+    <string-array name="Periods">
+        <item>Today</item>
+        <item>This Week</item>
+        <item>This Month</item>
+        <item>This Quarter</item>
+        <item>This Year</item>
     </string-array>
+
+    <string name="done">Done</string>
+    <string name="order_statuses">Order Statuses</string>
+    <string name="widget_configure">Configure</string>
+    <string name="widget_update">Update</string>
+    <string name="widget_store_name">Store Name</string>
+    <string name="widget_period">Period</string>
+    <string name="widget_order_status">Order Status</string>
+    <string name="widget_choose">Choose the order status</string>
 
 </resources>

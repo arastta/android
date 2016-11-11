@@ -108,7 +108,7 @@ public class ProductDetailsActivity extends Master2Activity
         public Object instantiateItem(ViewGroup container, int position)
         {
             ImageView imageView = new ImageView(context);
-            String imageUrl = ConstantsAndFunctions.getHttpOrHttps() + MasterActivity.url +"/"+ ImageList.get(position);
+            String imageUrl = MasterActivity.url +"/"+ ImageList.get(position);
             ImageOptions avatarOptions = new ImageOptions();
             avatarOptions.fileCache = true;
             avatarOptions.memCache = true;
