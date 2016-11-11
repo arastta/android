@@ -24,7 +24,7 @@ public class AppWidget extends AppWidgetProvider
 {
     Context ctx;
     int wid = 0;
-
+//
     boolean Working = false;
 
     static String SETTINGS_CLICKED = "SettingButton";
