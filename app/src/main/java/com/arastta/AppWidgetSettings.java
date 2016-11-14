@@ -397,9 +397,13 @@ public class AppWidgetSettings extends Activity
                         e.printStackTrace();
                     }
 
+                    if(!url.startsWith("http"))url = "http://" + url;//TODO XXX
+
                     saveTitlePref(context, "url", mAppWidgetId, url);
                     saveTitlePref(context, "username", mAppWidgetId, username);
                     saveTitlePref(context, "password", mAppWidgetId, password);
+
+                    new getOrderStatuses().execute();
 
                     if(Working)db.cancel(true);
                     db = new getDashboard();
@@ -458,6 +462,8 @@ public class AppWidgetSettings extends Activity
                     username = jsonArray.getJSONObject(i).getString("username");
                     password = jsonArray.getJSONObject(i).getString("password");
 
+                    if(!url.startsWith("http"))url = "http://" + url;//TODO XXX
+
                     saveTitlePref(context, "url", mAppWidgetId, url);
                     saveTitlePref(context, "username", mAppWidgetId, username);
                     saveTitlePref(context, "password", mAppWidgetId, password);
@@ -489,22 +495,24 @@ public class AppWidgetSettings extends Activity
 
             WidgetSettingsSpinnerStore.setSelection(store_id);
 
-
             if(store_id == 0)
             {
                 url = jsonArray.getJSONObject(0).getString("store_url");
                 username = jsonArray.getJSONObject(0).getString("username");
                 password = jsonArray.getJSONObject(0).getString("password");
 
+                if(!url.startsWith("http"))url = "http://" + url;//TODO XXX
+
                 saveTitlePref(context, "url", mAppWidgetId, url);
                 saveTitlePref(context, "username", mAppWidgetId, username);
                 saveTitlePref(context, "password", mAppWidgetId, password);
             }
 
+            new getOrderStatuses().execute();
+
+            if(Working)db.cancel(true);
             db = new getDashboard();
             db.execute();
-
-            new getOrderStatuses().execute();
         }
         catch (JSONException e)
         {
@@ -726,4 +734,3 @@ public class AppWidgetSettings extends Activity
     }
 
 }
-

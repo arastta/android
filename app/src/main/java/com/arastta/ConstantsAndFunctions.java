@@ -189,6 +189,8 @@ public class ConstantsAndFunctions extends Service
             String link = xUrl+"/index.php/api/"+functions;
 			Log.e("getHtml", link);
 
+			if(!link.startsWith("http"))link = "http://" + link;//TODO XXX
+
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 			StrictMode.setThreadPolicy(policy);
 
