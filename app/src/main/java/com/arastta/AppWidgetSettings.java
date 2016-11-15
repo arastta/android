@@ -44,7 +44,6 @@ public class AppWidgetSettings extends Activity
     String url = "";
     String username = "";
     String password = "";
-    String status = "";
     int period = 1;
     getDashboard db;
 
@@ -79,70 +78,6 @@ public class AppWidgetSettings extends Activity
     Spinner WidgetSettingsSpinnerPeriod;
     List<String> periods = new ArrayList<String>();
 
-    View.OnClickListener mOnClickListener = new View.OnClickListener()
-    {
-        public void onClick(View v)
-        {
-            final Context ctx = AppWidgetSettings.this;
-
-            saveTitlePref(context, "title", mAppWidgetId, WidgetSettingsSpinnerStore.getSelectedItem().toString());
-            saveTitlePref(context, "periodText", mAppWidgetId, WidgetSettingsSpinnerPeriod.getSelectedItem().toString());
-            saveTitlePref(context, "period", mAppWidgetId, String.valueOf(getPeriodCode(WidgetSettingsSpinnerPeriod.getSelectedItemPosition())));
-            saveTitlePref(context, "listIDs", mAppWidgetId, listIDs);
-            saveTitlePref(context, "statusIDs", mAppWidgetId, statusIDs);
-
-            try
-            {
-                saveTitlePref(context, "order_count", mAppWidgetId, orders.getString("number"));
-                saveTitlePref(context, "user_count", mAppWidgetId, customers.getString("number"));
-                saveTitlePref(context, "total", mAppWidgetId, orders.getString("nice_price"));
-            }
-            catch (JSONException e){
-                e.printStackTrace();
-            }
-            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(ctx);
-            AppWidget.updateAppWidget(ctx, appWidgetManager, mAppWidgetId);
-
-            Intent resultValue = new Intent();
-            resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
-            setResult(RESULT_OK, resultValue);
-            finish();
-        }
-    };
-
-    @Override
-    public void onBackPressed()
-    {
-        if(StatusesLayoutOpen)
-        {
-            StatusesLayoutOpen = false;
-            StatusesLayout.setVisibility(RelativeLayout.GONE);
-        }
-        else
-        {
-            saveTitlePref(context, "title", mAppWidgetId, WidgetSettingsSpinnerStore.getSelectedItem().toString());
-            saveTitlePref(context, "periodText", mAppWidgetId, WidgetSettingsSpinnerPeriod.getSelectedItem().toString());
-            saveTitlePref(context, "period", mAppWidgetId, String.valueOf(getPeriodCode(WidgetSettingsSpinnerPeriod.getSelectedItemPosition())));
-            saveTitlePref(context, "listIDs", mAppWidgetId, listIDs);
-            saveTitlePref(context, "statusIDs", mAppWidgetId, statusIDs);
-
-            try {
-                saveTitlePref(context, "order_count", mAppWidgetId, orders.getString("number"));
-                saveTitlePref(context, "user_count", mAppWidgetId, customers.getString("number"));
-                saveTitlePref(context, "total", mAppWidgetId, orders.getString("nice_price"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-            }
-
-            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-            AppWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
-
-            super.onBackPressed();
-        }
-    }
-
     public AppWidgetSettings()
     {
         super();
@@ -150,6 +85,7 @@ public class AppWidgetSettings extends Activity
 
     static void saveTitlePref(Context context, String value, int appWidgetId, String text)
     {
+        Log.e("saveTitlePref", value + " : " + text);
         SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
         prefs.putString(PREF_PREFIX_KEY + value + "_" + appWidgetId, text);
         prefs.apply();
@@ -165,7 +101,7 @@ public class AppWidgetSettings extends Activity
         }
         else
         {
-            return context.getString(R.string.app_name);
+            return "Arastta";
         }
     }
 
@@ -175,6 +111,44 @@ public class AppWidgetSettings extends Activity
         prefs.remove(PREF_PREFIX_KEY + value + "_" + appWidgetId);
         prefs.apply();
     }
+
+    View.OnClickListener saveListener = new View.OnClickListener()
+    {
+        public void onClick(View v)
+        {
+            if(!Working)
+            {
+                final Context ctx = AppWidgetSettings.this;
+
+                try
+                {
+                    saveTitlePref(context, "title", mAppWidgetId, WidgetSettingsSpinnerStore.getSelectedItem().toString());
+                    saveTitlePref(context, "periodText", mAppWidgetId, WidgetSettingsSpinnerPeriod.getSelectedItem().toString());
+                    saveTitlePref(context, "period", mAppWidgetId, String.valueOf(getPeriodCode(WidgetSettingsSpinnerPeriod.getSelectedItemPosition())));
+                    saveTitlePref(context, "listIDs", mAppWidgetId, listIDs);
+                    saveTitlePref(context, "statusIDs", mAppWidgetId, statusIDs);
+                    saveTitlePref(context, "password", mAppWidgetId, password);
+                    saveTitlePref(context, "username", mAppWidgetId, username);
+                    saveTitlePref(context, "url", mAppWidgetId, url);
+
+                    saveTitlePref(context, "order_count", mAppWidgetId, orders.getString("number"));
+                    saveTitlePref(context, "user_count", mAppWidgetId, customers.getString("number"));
+                    saveTitlePref(context, "total", mAppWidgetId, orders.getString("nice_price"));
+                }
+                catch (JSONException e){
+                    e.printStackTrace();
+                }
+
+                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(ctx);
+                AppWidget.updateAppWidget(ctx, appWidgetManager, mAppWidgetId);
+
+                Intent resultValue = new Intent();
+                resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
+                setResult(RESULT_OK, resultValue);
+                finish();
+            }
+        }
+    };
 
     @Override
     public void onCreate(Bundle icicle)
@@ -200,24 +174,26 @@ public class AppWidgetSettings extends Activity
 
         if (mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID)
         {
+            Log.e("onCreate","finish");
             finish();
             return;
         }
 
-        findViewById(R.id.WidgetSettingsButton).setOnClickListener(mOnClickListener);
+        findViewById(R.id.WidgetSettingsButton).setOnClickListener(saveListener);
 
         WidgetOrderCount = (TextView)findViewById(R.id.WidgetOrderCount);
         WidgetUserCount = (TextView)findViewById(R.id.WidgetUserCount);
         WidgetTotal = (TextView)findViewById(R.id.WidgetTotal);
 
+        listIDs = loadTitlePref(context, "listIDs", mAppWidgetId);
+        if(listIDs.equals("Arastta"))listIDs = "";
 
-        status = loadTitlePref(context, "statusIDs", mAppWidgetId);
-        if(status.equals("Arastta"))status = "";
+        statusIDs = loadTitlePref(context, "statusIDs", mAppWidgetId);
+        if(statusIDs.equals("Arastta"))statusIDs = "";
 
         String p = loadTitlePref(context, "period", mAppWidgetId);
         if(p.equals("Arastta"))period = 1;
         else period = Integer.parseInt(p);
-
 
         StatusesLayoutOpen = false;
         StatusesLayout = (RelativeLayout)findViewById(R.id.StatusesLayout) ;
@@ -239,6 +215,10 @@ public class AppWidgetSettings extends Activity
                 if(Statuses.size() > 0){
                     StatusesLayoutOpen = true;
                     StatusesLayout.setVisibility(RelativeLayout.VISIBLE);
+
+                    statusesAdapter.notifyDataSetChanged();
+                    StatusesLV.invalidateViews();
+                    StatusesLV.refreshDrawableState();
                 }
             }
         });
@@ -277,6 +257,7 @@ public class AppWidgetSettings extends Activity
                 {
                     listIDs = listIDs.substring(1,listIDs.length());
                     statusIDs = statusIDs.substring(1,statusIDs.length());
+                    StatusesLayoutCheckBox.setChecked(false);
                 }
                 else
                 {
@@ -294,14 +275,10 @@ public class AppWidgetSettings extends Activity
                     }
                     listIDs = listIDs.substring(1,listIDs.length());
                     statusIDs = statusIDs.substring(1,statusIDs.length());
+                    StatusesLayoutCheckBox.setChecked(true);
                 }
                 Log.e("listIDs", listIDs);
                 Log.e("statusIDs", statusIDs);
-
-                saveTitlePref(context, "listIDs", mAppWidgetId, listIDs);
-                saveTitlePref(context, "statusIDs", mAppWidgetId, statusIDs);
-
-                status = statusIDs;
 
                 if(Working)db.cancel(true);
                 db = new getDashboard();
@@ -335,13 +312,12 @@ public class AppWidgetSettings extends Activity
                     StatusesLV.invalidateViews();
                     StatusesLV.refreshDrawableState();
                     selectAll = false;
+
+                    setStatusesTextBox();
                 }
                 selectAllFirst = false;
-                setTextBox();
             }
         });
-
-
 
         WidgetSettingsSpinnerPeriod = (Spinner)findViewById(R.id.WidgetSettingsSpinnerPeriod);
         setPeriodSpinner();
@@ -353,11 +329,8 @@ public class AppWidgetSettings extends Activity
                 if(!PeriodFirst)
                 {
                     Log.e("onItemSelected",WidgetSettingsSpinnerPeriod.getSelectedItem().toString());
-                    saveTitlePref(context, "periodText", mAppWidgetId, WidgetSettingsSpinnerPeriod.getSelectedItem().toString());
 
                     period = getPeriodCode(position);
-
-                    saveTitlePref(context, "period", mAppWidgetId, String.valueOf(period));
 
                     if(Working)db.cancel(true);
                     db = new getDashboard();
@@ -367,9 +340,7 @@ public class AppWidgetSettings extends Activity
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
         WidgetSettingsSpinnerStore = (Spinner)findViewById(R.id.WidgetSettingsSpinnerStore);
@@ -382,7 +353,6 @@ public class AppWidgetSettings extends Activity
                 if(!StoreFirst)
                 {
                     Log.e("onItemSelected",WidgetSettingsSpinnerStore.getSelectedItem().toString());
-                    saveTitlePref(context, "title", mAppWidgetId, WidgetSettingsSpinnerStore.getSelectedItem().toString());
 
                     Log.i("selectedStore",storeList.get(WidgetSettingsSpinnerStore.getSelectedItemPosition()).toString());
                     //{"username":"mobile","password":"app","store_name":"test","store_url":"mobile.arastta.com","config_name":"Mobile","config_image":"image\/placeholder.png"}
@@ -399,10 +369,6 @@ public class AppWidgetSettings extends Activity
 
                     if(!url.startsWith("http"))url = "http://" + url;//TODO XXX
 
-                    saveTitlePref(context, "url", mAppWidgetId, url);
-                    saveTitlePref(context, "username", mAppWidgetId, username);
-                    saveTitlePref(context, "password", mAppWidgetId, password);
-
                     new getOrderStatuses().execute();
 
                     if(Working)db.cancel(true);
@@ -415,6 +381,24 @@ public class AppWidgetSettings extends Activity
             @Override
             public void onNothingSelected(AdapterView<?> parent){}
         });
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        if(Working)
+        {
+
+        }
+        else if(StatusesLayoutOpen)
+        {
+            StatusesLayoutOpen = false;
+            StatusesLayout.setVisibility(RelativeLayout.GONE);
+        }
+        else
+        {
+            super.onBackPressed();
+        }
     }
 
     public int getPeriodCode(int position)
@@ -463,10 +447,6 @@ public class AppWidgetSettings extends Activity
                     password = jsonArray.getJSONObject(i).getString("password");
 
                     if(!url.startsWith("http"))url = "http://" + url;//TODO XXX
-
-                    saveTitlePref(context, "url", mAppWidgetId, url);
-                    saveTitlePref(context, "username", mAppWidgetId, username);
-                    saveTitlePref(context, "password", mAppWidgetId, password);
                 }
             }
 
@@ -502,10 +482,6 @@ public class AppWidgetSettings extends Activity
                 password = jsonArray.getJSONObject(0).getString("password");
 
                 if(!url.startsWith("http"))url = "http://" + url;//TODO XXX
-
-                saveTitlePref(context, "url", mAppWidgetId, url);
-                saveTitlePref(context, "username", mAppWidgetId, username);
-                saveTitlePref(context, "password", mAppWidgetId, password);
             }
 
             new getOrderStatuses().execute();
@@ -560,31 +536,57 @@ public class AppWidgetSettings extends Activity
                             Statuses.add(jsonArray.getJSONObject(i));
                         }
 
+                        trues = new boolean[Statuses.size()];
+
                         try
                         {
-                            String[] trs = loadTitlePref(context, "listIDs", mAppWidgetId).split(",");
-                            trues = new boolean[Statuses.size()];
-                            for (int i = 0; i < Statuses.size(); i++) {
-                                trues[i] = false;
-                                if(trs.length == 0){
+                            if(loadTitlePref(context, "title", mAppWidgetId).equals(WidgetSettingsSpinnerStore.getSelectedItem().toString()))
+                            {
+                                String[] trs = loadTitlePref(context, "listIDs", mAppWidgetId).split(",");
+                                if(trs.length == 0)
+                                {
                                     StatusesLayoutCheckBox.setChecked(true);
-                                    trues[i] = true;
+                                    for (int i = 0; i < trues.length; i++) {
+                                        trues[i] = true;
+                                    }
                                 }
-                                else{
+                                else
+                                {
                                     StatusesLayoutCheckBox.setChecked(false);
+                                    for (int j = 0; j < trs.length; j++) {
+                                        trues[Integer.parseInt(trs[j])] = true;
+                                    }
                                 }
                             }
-                            for (int j = 0; j < trs.length; j++) {
-                                trues[Integer.parseInt(trs[j])] = true;
+                            else
+                            {
+                                StatusesLayoutCheckBox.setChecked(true);
+                                listIDs = "";
+                                statusIDs = "";
+                                for(int i=0;i<trues.length;i++)
+                                {
+                                    trues[i] = true;
+                                    listIDs = listIDs + "," + String.valueOf(i);
+                                    try
+                                    {
+                                        statusIDs = statusIDs + "," + Statuses.get(i).getString("order_status_id");
+                                    }
+                                    catch (JSONException e){
+                                        e.printStackTrace();
+                                    }
+                                }
+                                listIDs = listIDs.substring(1,listIDs.length());
+                                statusIDs = statusIDs.substring(1,statusIDs.length());
                             }
                         }
                         catch (NumberFormatException e){}
+                        catch (StringIndexOutOfBoundsException e){}
+
+                        setStatusesTextBox();
 
                         statusesAdapter = new StatusesAdapter(context,Statuses);
                         StatusesLV.setAdapter(statusesAdapter);
                     }
-
-                    setTextBox();
                 }
                 catch (JSONException e)
                 {
@@ -615,7 +617,7 @@ public class AppWidgetSettings extends Activity
         protected String doInBackground(String... params)
         {
             ResultText = ConstantsAndFunctions.getHtml(username,password,url,"stats"+
-                    "?status=" + status +
+                    "?status=" + statusIDs +
                     "&date_from=" + ConstantsAndFunctions.getFromDate(period) +
                     "&date_to=" + ConstantsAndFunctions.getTodayDate());
 
@@ -642,10 +644,6 @@ public class AppWidgetSettings extends Activity
                     WidgetOrderCount.setText(orders.getString("number"));
                     WidgetUserCount.setText(customers.getString("number"));
                     WidgetTotal.setText(orders.getString("nice_price"));
-
-                    saveTitlePref(context, "order_count", mAppWidgetId, orders.getString("number"));
-                    saveTitlePref(context, "user_count", mAppWidgetId, customers.getString("number"));
-                    saveTitlePref(context, "total", mAppWidgetId, orders.getString("nice_price"));
                 }
                 catch (JSONException e)
                 {
@@ -712,7 +710,7 @@ public class AppWidgetSettings extends Activity
         }
     }
 
-    void setTextBox()
+    void setStatusesTextBox()
     {
         String texts = "";
         for(int tk=0;tk<trues.length;tk++)
