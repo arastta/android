@@ -3,6 +3,8 @@ package com.arastta;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +20,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -37,6 +40,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MasterActivity extends Activity
 {
@@ -73,7 +77,12 @@ public class MasterActivity extends Activity
     RelativeLayout SearchBar;
     EditText SearchText;
     ImageButton SearchClose;
-    ImageButton SearchButton;
+
+    boolean typeOfDate = false;
+    boolean filterIsOpen = false;
+    RelativeLayout FilterArea;
+    TextView FilterStartDate;
+    TextView FilterFinishDate;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -319,12 +328,12 @@ public class MasterActivity extends Activity
                     if(activePage == 1)
                     {
                         //Orders
-                        OrdersActivity.xOrders("&search="+text);
+                        OrdersActivity.xOrders("&search="+text,"","");
                     }
                     if(activePage == 2)
                     {
                         //Customers
-                        CustomersActivity.xCustomers("&search="+text);
+                        CustomersActivity.xCustomers("&search="+text,"","");
                     }
                     if(activePage == 3)
                     {
@@ -352,12 +361,12 @@ public class MasterActivity extends Activity
                 if(activePage == 1)
                 {
                     //Orders
-                    OrdersActivity.xOrders("");
+                    OrdersActivity.xOrders("","","");
                 }
                 if(activePage == 2)
                 {
                     //Customers
-                    CustomersActivity.xCustomers("");
+                    CustomersActivity.xCustomers("","","");
                 }
                 if(activePage == 3)
                 {
@@ -367,7 +376,7 @@ public class MasterActivity extends Activity
             }
         });
 
-        SearchButton = (ImageButton) findViewById(R.id.SearchButton);
+        ImageButton SearchButton = (ImageButton) findViewById(R.id.SearchButton);
         SearchButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -382,12 +391,12 @@ public class MasterActivity extends Activity
                     if(activePage == 1)
                     {
                         //Orders
-                        OrdersActivity.xOrders("&search="+text);
+                        OrdersActivity.xOrders("&search="+text,"","");
                     }
                     if(activePage == 2)
                     {
                         //Customers
-                        CustomersActivity.xCustomers("&search="+text);
+                        CustomersActivity.xCustomers("&search="+text,"","");
                     }
                     if(activePage == 3)
                     {
@@ -403,13 +412,171 @@ public class MasterActivity extends Activity
             }
         });
 
+        FilterArea = (RelativeLayout) findViewById(R.id.FilterArea);
+        FilterArea.setVisibility(RelativeLayout.GONE);
+        filterIsOpen = false;
+
+        TextView FilterTitle = (TextView)findViewById(R.id.FilterTitle);
+        FilterTitle.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
+
+        TextView FilterStartDateX = (TextView)findViewById(R.id.FilterStartDateX);
+        FilterStartDateX.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
+
+        TextView FilterFinishDateX = (TextView)findViewById(R.id.FilterFinishDateX);
+        FilterFinishDateX.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
+
+        FilterStartDate = (TextView)findViewById(R.id.FilterStartDate);
+        FilterStartDate.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
+        FilterStartDate.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                typeOfDate = false;
+
+                Calendar calendar = Calendar.getInstance();
+
+                String[] datePrms = FilterStartDate.getText().toString().trim().split("-");
+                try
+                {
+                    calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(datePrms[2]));
+                    calendar.set(Calendar.MONTH, Integer.parseInt(datePrms[1])-1);
+                    calendar.set(Calendar.YEAR, Integer.parseInt(datePrms[0]));
+                }
+                catch (ArrayIndexOutOfBoundsException e){
+                    e.printStackTrace();
+                }
+
+                Dialog mDialog = new DatePickerDialog(context,
+                        mDatesetListener,
+                        calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH));
+                mDialog.show();
+            }
+        });
+
+        FilterFinishDate = (TextView)findViewById(R.id.FilterFinishDate);
+        FilterFinishDate.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
+        FilterFinishDate.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                typeOfDate = true;
+
+                Calendar calendar = Calendar.getInstance();
+
+                String[] datePrms = FilterFinishDate.getText().toString().trim().split("-");
+                try
+                {
+                    calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(datePrms[2]));
+                    calendar.set(Calendar.MONTH, Integer.parseInt(datePrms[1])-1);
+                    calendar.set(Calendar.YEAR, Integer.parseInt(datePrms[0]));
+                }
+                catch (ArrayIndexOutOfBoundsException e){
+                    e.printStackTrace();
+                }
+
+                Dialog mDialog = new DatePickerDialog(context,
+                        mDatesetListener,
+                        calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH));
+                mDialog.show();
+            }
+        });
+
+        ImageButton FilterButton = (ImageButton) findViewById(R.id.FilterButton);
+        FilterButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                FilterArea.setVisibility(RelativeLayout.VISIBLE);
+                filterIsOpen = true;
+
+                String sd = "";
+                String fd = "";
+                if(activePage == 0)
+                {
+                    //Orders
+                    sd = ConstantsAndFunctions.getFromDate(DashboardActivity.day);
+                }
+                if(activePage == 1)
+                {
+                    //Orders
+                    sd = ConstantsAndFunctions.getFromDate(OrdersActivity.day);
+                }
+                if(activePage == 2)
+                {
+                    //Customers
+                    sd = ConstantsAndFunctions.getFromDate(CustomersActivity.day);
+                }
+
+                fd = ConstantsAndFunctions.getTodayDate();
+
+                FilterStartDate.setText(sd);
+                FilterFinishDate.setText(fd);
+            }
+        });
+
+        ImageButton FilterClose = (ImageButton)findViewById(R.id.FilterClose);
+        FilterClose.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                FilterArea.setVisibility(RelativeLayout.GONE);
+                filterIsOpen = false;
+            }
+        });
+
+        TextView FilterDone = (TextView)findViewById(R.id.FilterDone);
+        FilterDone.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
+        FilterDone.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                FilterArea.setVisibility(RelativeLayout.GONE);
+                filterIsOpen = false;
+
+                String sd = FilterStartDate.getText().toString().trim();
+                String fd = FilterFinishDate.getText().toString().trim();
+
+                if(activePage == 0)
+                {
+                    //Orders
+                    DashboardActivity.xDashboard(sd,fd);
+                    DashboardActivity.resetTabs(context);
+                }
+                if(activePage == 1)
+                {
+                    //Orders
+                    OrdersActivity.xOrders("",sd,fd);
+                    OrdersActivity.resetTabs(context);
+                }
+                if(activePage == 2)
+                {
+                    //Customers
+                    CustomersActivity.xCustomers("",sd,fd);
+                    CustomersActivity.resetTabs(context);
+                }
+            }
+        });
+
+        SearchButton.setVisibility(ImageButton.VISIBLE);
+        FilterButton.setVisibility(ImageButton.VISIBLE);
+
         if(activePage == 0)
         {
             SearchButton.setVisibility(ImageButton.GONE);
         }
-        else
+
+        if(activePage == 3)
         {
-            SearchButton.setVisibility(ImageButton.VISIBLE);
+            FilterButton.setVisibility(ImageButton.GONE);
         }
 
         TextView GetArasttaCloud = (TextView)findViewById(R.id.GetArasttaCloud);
@@ -445,23 +612,15 @@ public class MasterActivity extends Activity
             if(!SearchText.getText().toString().trim().equals(""))
             {
                 SearchText.setText("");
-                if(activePage == 1)
-                {
-                    //Orders
-                    OrdersActivity.xOrders("");
-                }
-                if(activePage == 2)
-                {
-                    //Customers
-                    CustomersActivity.xCustomers("");
-                }
-                if(activePage == 3)
-                {
-                    //Products
-                    ProductsActivity.xProducts("");
-                }
+                if(activePage == 1)OrdersActivity.xOrders("","","");
+                if(activePage == 2)CustomersActivity.xCustomers("","","");
+                if(activePage == 3)ProductsActivity.xProducts("");
             }
-
+        }
+        else if(filterIsOpen)
+        {
+            filterIsOpen = false;
+            FilterArea.setVisibility(RelativeLayout.GONE);
         }
         else if(!SideDrawer.isClosed())
         {
@@ -564,4 +723,24 @@ public class MasterActivity extends Activity
             e.printStackTrace();
         }
     }
+
+    DatePickerDialog.OnDateSetListener mDatesetListener = new DatePickerDialog.OnDateSetListener() {
+        public void onDateSet(DatePicker dp, int yil, int ay, int gun) {
+            ay = ay + 1;
+
+            String day = String.valueOf(gun);
+            String month = String.valueOf(ay);
+            String year = String.valueOf(yil);
+
+            if (day.length() == 1) day = "0"+day;
+            if (month.length() == 1) month = "0"+month;
+
+            String date = year + "-" + month + "-" + day;
+
+            if(!typeOfDate)
+                FilterStartDate.setText(date);
+            else
+                FilterFinishDate.setText(date);
+        }
+    };
 }

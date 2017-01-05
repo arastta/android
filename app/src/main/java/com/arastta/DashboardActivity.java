@@ -2,7 +2,6 @@ package com.arastta;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,9 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.arastta.GraphLib.Line;
-import com.arastta.GraphLib.LineGraph;
-import com.arastta.GraphLib.LinePoint;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -24,44 +20,37 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.StringTokenizer;
 
 public class DashboardActivity extends MasterActivity
 {
-    Context context;
-    String ScreenName = "";
+    static Context context;
+    static String ScreenName = "";
 
-    boolean Working = false;
-    int day = 1;
+    static boolean Working = false;
+    static int day = 1;
 
-    TextView ValueSales;
-    TextView ValueOrders;
-    TextView ValueCustomers;
-    TextView ValueProducts;
+    static TextView ValueSales;
+    static TextView ValueOrders;
+    static TextView ValueCustomers;
+    static TextView ValueProducts;
 
-    TextView DashboardDetailValue1;
-    TextView DashboardDetailValue2;
-    TextView DashboardDetailValue3;
-    TextView DashboardDetailValue4;
+    static TextView DashboardDetailValue1;
+    static TextView DashboardDetailValue2;
+    static TextView DashboardDetailValue3;
+    static TextView DashboardDetailValue4;
 
-    RelativeLayout TabLine1;
-    RelativeLayout TabLine2;
-    RelativeLayout TabLine3;
+    static RelativeLayout TabLine1;
+    static RelativeLayout TabLine2;
+    static RelativeLayout TabLine3;
 
-    TextView TabText1;
-    TextView TabText2;
-    TextView TabText3;
+    static TextView TabText1;
+    static TextView TabText2;
+    static TextView TabText3;
 
-    LineGraph li;
-    GraphView graphView;
+    static GraphView graphView;
 
-    void resetAct()
+    static void resetAct()
     {
         ValueSales.setText("0");
         ValueOrders.setText("0");
@@ -74,15 +63,15 @@ public class DashboardActivity extends MasterActivity
         DashboardDetailValue4.setText("0");
     }
 
-    void resetTabs()
+    static void resetTabs(Context context)
     {
         TabLine1.setVisibility(RelativeLayout.INVISIBLE);
         TabLine2.setVisibility(RelativeLayout.INVISIBLE);
         TabLine3.setVisibility(RelativeLayout.INVISIBLE);
 
-        TabText1.setTextColor(getResources().getColor(R.color.colorHint));
-        TabText2.setTextColor(getResources().getColor(R.color.colorHint));
-        TabText3.setTextColor(getResources().getColor(R.color.colorHint));
+        TabText1.setTextColor(context.getResources().getColor(R.color.colorHint));
+        TabText2.setTextColor(context.getResources().getColor(R.color.colorHint));
+        TabText3.setTextColor(context.getResources().getColor(R.color.colorHint));
 
         TabText1.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
         TabText2.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
@@ -105,7 +94,6 @@ public class DashboardActivity extends MasterActivity
         context = DashboardActivity.this;
         ScreenName = "DashboardActivity";
 
-        li = (LineGraph)findViewById(R.id.linegraph);
         graphView = (GraphView) findViewById(R.id.graphView);
 
 
@@ -143,36 +131,36 @@ public class DashboardActivity extends MasterActivity
         TabText1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetTabs();
+                resetTabs(context);
                 TabLine1.setVisibility(RelativeLayout.VISIBLE);
                 TabText1.setTextColor(getResources().getColor(R.color.colorPrimary));
                 TabText1.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
                 day = 1;
-                new getDashboard().execute();
+                xDashboard("","");
             }
         });
 
         TabText2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetTabs();
+                resetTabs(context);
                 TabLine2.setVisibility(RelativeLayout.VISIBLE);
                 TabText2.setTextColor(getResources().getColor(R.color.colorPrimary));
                 TabText2.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
                 day = 30;
-                new getDashboard().execute();
+                xDashboard("","");
             }
         });
 
         TabText3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetTabs();
+                resetTabs(context);
                 TabLine3.setVisibility(RelativeLayout.VISIBLE);
                 TabText3.setTextColor(getResources().getColor(R.color.colorPrimary));
                 TabText3.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
                 day = 365;
-                new getDashboard().execute();
+                xDashboard("","");
             }
         });
 
@@ -237,10 +225,17 @@ public class DashboardActivity extends MasterActivity
         });
 
         day = 1;
-        new getDashboard().execute();
+        xDashboard("","");
     }
 
-    private class getDashboard extends AsyncTask<String, Void, String>
+    public static void xDashboard (String sd, String fd)
+    {
+        if(sd.equals(""))sd = ConstantsAndFunctions.getFromDate(day);
+        if(fd.equals(""))fd = ConstantsAndFunctions.getTodayDate();
+        new getDashboard().execute(sd,fd);
+    }
+
+    private static class getDashboard extends AsyncTask<String, Void, String>
     {
         String ResultText = "";
 
@@ -257,7 +252,7 @@ public class DashboardActivity extends MasterActivity
         @Override
         protected String doInBackground(String... params)
         {
-            ResultText = ConstantsAndFunctions.getHtml(username,password,url,"stats"+"?date_from="+ConstantsAndFunctions.getFromDate(day)+"&date_to="+ConstantsAndFunctions.getTodayDate());//stats?date_from=2016-04-01&date_to=2016-09-07
+            ResultText = ConstantsAndFunctions.getHtml(username,password,url,"stats"+"?date_from="+params[0]+"&date_to="+params[1]);//stats?date_from=2016-04-01&date_to=2016-09-07
 
             return ResultText;
         }
@@ -273,7 +268,7 @@ public class DashboardActivity extends MasterActivity
 
             if(ResultText.equals("error"))
             {
-                Toast.makeText(context, getResources().getString(R.string.connection_failed), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, context.getResources().getString(R.string.connection_failed), Toast.LENGTH_SHORT).show();
             }
             else
             {
@@ -329,7 +324,7 @@ public class DashboardActivity extends MasterActivity
 
 
                         LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>();
-                        series.setColor(getResources().getColor(R.color.colorPrimary));
+                        series.setColor(context.getResources().getColor(R.color.colorPrimary));
                         try
                         {
                             if (prices.size() > 0)
@@ -348,9 +343,9 @@ public class DashboardActivity extends MasterActivity
                         graphView.getViewport().setXAxisBoundsManual(true);
                         graphView.getViewport().setMinX(0);
                         graphView.getViewport().setMaxX(daily.length());
-                        graphView.getGridLabelRenderer().setGridColor(getResources().getColor(R.color.colorAccent));
-                        graphView.getGridLabelRenderer().setVerticalLabelsColor(getResources().getColor(R.color.colorAccent));
-                        graphView.getGridLabelRenderer().setHorizontalLabelsColor(getResources().getColor(R.color.colorAccent));
+                        graphView.getGridLabelRenderer().setGridColor(context.getResources().getColor(R.color.colorAccent));
+                        graphView.getGridLabelRenderer().setVerticalLabelsColor(context.getResources().getColor(R.color.colorAccent));
+                        graphView.getGridLabelRenderer().setHorizontalLabelsColor(context.getResources().getColor(R.color.colorAccent));
                         graphView.removeAllSeries();
                         graphView.addSeries(series);
 

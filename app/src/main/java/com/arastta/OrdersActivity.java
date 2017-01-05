@@ -15,7 +15,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class OrdersActivity extends MasterActivity
@@ -32,15 +31,15 @@ public class OrdersActivity extends MasterActivity
     static ArrayList<JSONObject> arrayList = new ArrayList<JSONObject>();
     static ListView listView;
 
-    RelativeLayout TabLine1;
-    RelativeLayout TabLine2;
-    RelativeLayout TabLine3;
+    static RelativeLayout TabLine1;
+    static RelativeLayout TabLine2;
+    static RelativeLayout TabLine3;
 
-    TextView TabText1;
-    TextView TabText2;
-    TextView TabText3;
+    static TextView TabText1;
+    static TextView TabText2;
+    static TextView TabText3;
 
-    void resetAct()
+    static void resetAct()
     {
         arrayList.clear();
         arrayList = new ArrayList<JSONObject>();
@@ -49,15 +48,15 @@ public class OrdersActivity extends MasterActivity
         OrdersTotalValue.setText("$0.00");
     }
 
-    void resetTabs()
+    static void resetTabs(Context context)
     {
         TabLine1.setVisibility(RelativeLayout.INVISIBLE);
         TabLine2.setVisibility(RelativeLayout.INVISIBLE);
         TabLine3.setVisibility(RelativeLayout.INVISIBLE);
 
-        TabText1.setTextColor(getResources().getColor(R.color.colorHint));
-        TabText2.setTextColor(getResources().getColor(R.color.colorHint));
-        TabText3.setTextColor(getResources().getColor(R.color.colorHint));
+        TabText1.setTextColor(context.getResources().getColor(R.color.colorHint));
+        TabText2.setTextColor(context.getResources().getColor(R.color.colorHint));
+        TabText3.setTextColor(context.getResources().getColor(R.color.colorHint));
 
         TabText1.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
         TabText2.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
@@ -99,36 +98,36 @@ public class OrdersActivity extends MasterActivity
         TabText1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetTabs();
+                resetTabs(context);
                 TabLine1.setVisibility(RelativeLayout.VISIBLE);
                 TabText1.setTextColor(getResources().getColor(R.color.colorPrimary));
                 TabText1.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
                 day = 1;
-                xOrders("");
+                xOrders("","","");
             }
         });
 
         TabText2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetTabs();
+                resetTabs(context);
                 TabLine2.setVisibility(RelativeLayout.VISIBLE);
                 TabText2.setTextColor(getResources().getColor(R.color.colorPrimary));
                 TabText2.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
                 day = 30;
-                xOrders("");
+                xOrders("","","");
             }
         });
 
         TabText3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetTabs();
+                resetTabs(context);
                 TabLine3.setVisibility(RelativeLayout.VISIBLE);
                 TabText3.setTextColor(getResources().getColor(R.color.colorPrimary));
                 TabText3.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
                 day = 365;
-                xOrders("");
+                xOrders("","","");
             }
         });
 
@@ -143,18 +142,23 @@ public class OrdersActivity extends MasterActivity
         listView.setHeaderDividersEnabled(false);
 
         day = 1;
-        xOrders("");
+        xOrders("","","");
     }
 
-    public static void xOrders(String text)
+    public static void xOrders(String text, String sd, String fd)
     {
-        new getOrders().execute(text);
+        if(sd.equals(""))sd = ConstantsAndFunctions.getFromDate(day);
+        if(fd.equals(""))fd = ConstantsAndFunctions.getTodayDate();
+        new getOrders().execute(text,sd,fd);
     }
 
     public static class getOrders extends AsyncTask<String, Void, String>
     {
         String ResultText = "";
+
         String text = "";
+        String sd = "";
+        String fd = "";
 
         @Override
         protected void onProgressUpdate(Void... values){}
@@ -170,7 +174,10 @@ public class OrdersActivity extends MasterActivity
         protected String doInBackground(String... params)
         {
             text = params[0];
-            ResultText = ConstantsAndFunctions.getHtml(username,password,url,"orders?order=DESC"+"&date_from="+ConstantsAndFunctions.getFromDate(day)+"&date_to="+ConstantsAndFunctions.getTodayDate()+text);//stats?date_from=2016-04-01&date_to=2016-09-07
+            sd = params[1];
+            fd = params[2];
+
+            ResultText = ConstantsAndFunctions.getHtml(username,password,url,"orders?order=DESC"+"&date_from="+sd+"&date_to="+fd+text);//stats?date_from=2016-04-01&date_to=2016-09-07
 
             return ResultText;
         }
@@ -223,7 +230,7 @@ public class OrdersActivity extends MasterActivity
                 }
             }
 
-            new getOrdersTotal().execute(text);
+            new getOrdersTotal().execute(text,sd,fd);
         }
     }
 
@@ -244,7 +251,7 @@ public class OrdersActivity extends MasterActivity
         @Override
         protected String doInBackground(String... params)
         {
-            ResultText = ConstantsAndFunctions.getHtml(username,password,url,"orders/totals"+"?date_from="+ConstantsAndFunctions.getFromDate(day)+"&date_to="+ConstantsAndFunctions.getTodayDate()+params[0]);//stats?date_from=2016-04-01&date_to=2016-09-07
+            ResultText = ConstantsAndFunctions.getHtml(username,password,url,"orders/totals"+"?date_from="+params[1]+"&date_to="+params[2]+params[0]);//stats?date_from=2016-04-01&date_to=2016-09-07
 
             return ResultText;
         }

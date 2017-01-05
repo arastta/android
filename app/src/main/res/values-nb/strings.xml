@@ -50,9 +50,9 @@
 
     <string name="add_store">Legg til butikk ...</string>
 
-    <string name="today">I dag</string>
-    <string name="monthly">Månedlig</string>
-    <string name="yearly">Årlig</string>
+    <string name="today">I Dag</string>
+    <string name="monthly">I Måned</string>
+    <string name="yearly">I År</string>
 
     <string name="sales">Salg</string>
     <string name="product_info">Produktinfo</string>
@@ -62,6 +62,10 @@
     <string name="history">Historikk</string>
     <string name="notify_customer">Varsle kunden</string>
     <string name="notification">Varsling</string>
+
+    <string name="start_date">Startdato</string>
+    <string name="finish_date">Sluttdato</string>
+    <string name="date_range">Datointervall</string>
 
     <string name="dashboard_details_1">Bestillingsverdi per dag (snitt):</string>
     <string name="dashboard_details_2">Bestillinger per dag (snitt):</string>

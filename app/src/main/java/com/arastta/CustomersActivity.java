@@ -30,15 +30,15 @@ public class CustomersActivity extends MasterActivity
     static ArrayList<JSONObject> arrayList = new ArrayList<JSONObject>();
     static ListView listView;
 
-    RelativeLayout TabLine1;
-    RelativeLayout TabLine2;
-    RelativeLayout TabLine3;
+    static RelativeLayout TabLine1;
+    static RelativeLayout TabLine2;
+    static RelativeLayout TabLine3;
 
-    TextView TabText1;
-    TextView TabText2;
-    TextView TabText3;
+    static TextView TabText1;
+    static TextView TabText2;
+    static TextView TabText3;
 
-    void resetAct()
+    static void resetAct()
     {
         arrayList.clear();
         arrayList = new ArrayList<JSONObject>();
@@ -46,15 +46,15 @@ public class CustomersActivity extends MasterActivity
         listView.setAdapter(adapter);
     }
 
-    void resetTabs()
+    static void resetTabs(Context context)
     {
         TabLine1.setVisibility(RelativeLayout.INVISIBLE);
         TabLine2.setVisibility(RelativeLayout.INVISIBLE);
         TabLine3.setVisibility(RelativeLayout.INVISIBLE);
 
-        TabText1.setTextColor(getResources().getColor(R.color.colorHint));
-        TabText2.setTextColor(getResources().getColor(R.color.colorHint));
-        TabText3.setTextColor(getResources().getColor(R.color.colorHint));
+        TabText1.setTextColor(context.getResources().getColor(R.color.colorHint));
+        TabText2.setTextColor(context.getResources().getColor(R.color.colorHint));
+        TabText3.setTextColor(context.getResources().getColor(R.color.colorHint));
 
         TabText1.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
         TabText2.setTypeface(ConstantsAndFunctions.getTypeFace(context,false));
@@ -92,36 +92,36 @@ public class CustomersActivity extends MasterActivity
         TabText1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetTabs();
+                resetTabs(context);
                 TabLine1.setVisibility(RelativeLayout.VISIBLE);
                 TabText1.setTextColor(getResources().getColor(R.color.colorPrimary));
                 TabText1.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
                 day = 1;
-                xCustomers("");
+                xCustomers("","","");
             }
         });
 
         TabText2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetTabs();
+                resetTabs(context);
                 TabLine2.setVisibility(RelativeLayout.VISIBLE);
                 TabText2.setTextColor(getResources().getColor(R.color.colorPrimary));
                 TabText2.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
                 day = 30;
-                xCustomers("");
+                xCustomers("","","");
             }
         });
 
         TabText3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetTabs();
+                resetTabs(context);
                 TabLine3.setVisibility(RelativeLayout.VISIBLE);
                 TabText3.setTextColor(getResources().getColor(R.color.colorPrimary));
                 TabText3.setTypeface(ConstantsAndFunctions.getTypeFace(context,true));
                 day = 365;
-                xCustomers("");
+                xCustomers("","","");
             }
         });
 
@@ -133,12 +133,14 @@ public class CustomersActivity extends MasterActivity
         listView.setHeaderDividersEnabled(false);
 
         day = 1;
-        xCustomers("");
+        xCustomers("","","");
     }
 
-    public static void xCustomers(String text)
+    public static void xCustomers(String text, String sd, String fd)
     {
-        new getCustomers().execute(text);
+        if(sd.equals(""))sd = ConstantsAndFunctions.getFromDate(day);
+        if(fd.equals(""))fd = ConstantsAndFunctions.getTodayDate();
+        new getCustomers().execute(text,sd,fd);
     }
 
     public static class getCustomers extends AsyncTask<String, Void, String>
@@ -158,7 +160,7 @@ public class CustomersActivity extends MasterActivity
         @Override
         protected String doInBackground(String... params)
         {
-            ResultText = ConstantsAndFunctions.getHtml(username,password,url,"customers"+"?date_from="+ConstantsAndFunctions.getFromDate(day)+"&date_to="+ConstantsAndFunctions.getTodayDate()+params[0]);//stats?date_from=2016-04-01&date_to=2016-09-07
+            ResultText = ConstantsAndFunctions.getHtml(username,password,url,"customers"+"?date_from="+params[1]+"&date_to="+params[2]+params[0]);//stats?date_from=2016-04-01&date_to=2016-09-07
 
             return ResultText;
         }
