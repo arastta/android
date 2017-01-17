@@ -142,6 +142,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/MenuButton"
+            android:layout_toLeftOf="@+id/TopButtons"
+            android:ellipsize="end"
             android:layout_centerVertical="true"
             android:textColor="@android:color/white"
             android:textSize="18dp"/>

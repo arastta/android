@@ -168,7 +168,8 @@ public class AppWidgetSettings extends Activity
         if (extras != null)
         {
             mAppWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-            Log.e("mAppWidgetId",String.valueOf(mAppWidgetId));
+            //mAppWidgetId = Integer.parseInt(intent.getAction());
+            Log.e("mAppWidgetId1",String.valueOf(mAppWidgetId));
             Log.e("mAppWidgetId2",String.valueOf(extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID)));
         }
 

@@ -2,7 +2,7 @@
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:minHeight="40dp"
     android:minWidth="250dp"
-    android:updatePeriodMillis="86400000"
+    android:updatePeriodMillis="3600000"
     android:configure="com.arastta.AppWidgetSettings"
     android:previewImage="@drawable/widget_preview"
     android:initialLayout="@layout/app_widget"

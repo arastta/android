@@ -26,6 +26,7 @@ public class AppWidget extends AppWidgetProvider
     boolean Working = false;
 
     static String APPWIDGET_UPDATE = "android.appwidget.action.APPWIDGET_UPDATE";
+    static String SETTING = "Setting";
     static String REFRESH = "Refresh";
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId)
@@ -42,12 +43,13 @@ public class AppWidget extends AppWidgetProvider
 
         Intent setting = new Intent(context, AppWidgetSettings.class);
         setting.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+        setting.setAction(String.valueOf(appWidgetId));
         PendingIntent setting_ = PendingIntent.getActivity(context, 0, setting, PendingIntent.FLAG_UPDATE_CURRENT);
         remoteViews.setOnClickPendingIntent(R.id.WidgetSettings, setting_);
 
         Intent refresh = new Intent(context, AppWidget.class);
         refresh.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-        refresh.setAction(REFRESH);
+        refresh.setAction(REFRESH+String.valueOf(appWidgetId));
         PendingIntent refresh_ = PendingIntent.getBroadcast(context, 0, refresh, PendingIntent.FLAG_UPDATE_CURRENT);
         remoteViews.setOnClickPendingIntent(R.id.WidgetRefresh, refresh_);
 
@@ -64,6 +66,7 @@ public class AppWidget extends AppWidgetProvider
         for (int i=0; i<appWidgetIds.length; i++)
         {
             int appWidgetId = appWidgetIds[i];
+            Log.e("onUpdate","appWidgetId:"+String.valueOf(appWidgetId));
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }
     }
@@ -78,22 +81,29 @@ public class AppWidget extends AppWidgetProvider
         {
             Log.e("onReceive",APPWIDGET_UPDATE);
             if(intent.getExtras() != null) {
+
+                ComponentName componentName = new ComponentName(context, AppWidget.class);
                 AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-                ComponentName thisAppWidget = new ComponentName(context.getPackageName(), AppWidget.class.getName());
-                int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisAppWidget);
+                int[] appWidgetIds = appWidgetManager.getAppWidgetIds(componentName);
+
+                //AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+                //ComponentName thisAppWidget = new ComponentName(context.getPackageName(), AppWidget.class.getName());
+                //int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisAppWidget);
 
                 onUpdate(context, appWidgetManager, appWidgetIds);
             }
         }
 
-        if(intent.getAction().equals(REFRESH))
+        if(intent.getAction().startsWith(REFRESH))
         {
             Log.e("onReceive",REFRESH);
             if (intent.getExtras() != null)
             {
                 ctx = context;
-                wid = intent.getExtras().getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-                Log.e("mAppWidgetId",String.valueOf(wid));
+                //wid = intent.getExtras().getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+                Log.e("mAppWidgetIdXX",intent.getAction());
+                wid = Integer.parseInt(intent.getAction().substring(REFRESH.length()));
+                Log.e("mAppWidgetIdX",String.valueOf(wid));
                 Log.e("mAppWidgetId2",String.valueOf(intent.getExtras().getInt(AppWidgetManager.EXTRA_APPWIDGET_ID)));
                 if(!Working)new getDashboard().execute();
             }
@@ -104,22 +114,7 @@ public class AppWidget extends AppWidgetProvider
     public void onDeleted(Context context, int[] appWidgetIds)
     {
         Log.e("AppWidget","onDeleted");
-        /*
-        for (int appWidgetId : appWidgetIds)
-        {
-            AppWidgetSettings.deleteTitlePref(context, "title", appWidgetId);
-            AppWidgetSettings.deleteTitlePref(context, "order_count", appWidgetId);
-            AppWidgetSettings.deleteTitlePref(context, "user_count", appWidgetId);
-            AppWidgetSettings.deleteTitlePref(context, "total", appWidgetId);
-            AppWidgetSettings.deleteTitlePref(context, "periodText", appWidgetId);
-            AppWidgetSettings.deleteTitlePref(context, "period", appWidgetId);
-            AppWidgetSettings.deleteTitlePref(context, "listIDs", appWidgetId);
-            AppWidgetSettings.deleteTitlePref(context, "statusIDs", appWidgetId);
-            AppWidgetSettings.deleteTitlePref(context, "username", appWidgetId);
-            AppWidgetSettings.deleteTitlePref(context, "password", appWidgetId);
-            AppWidgetSettings.deleteTitlePref(context, "url", appWidgetId);
-        }
-        */
+        super.onDeleted(context, appWidgetIds);
     }
 
     @Override

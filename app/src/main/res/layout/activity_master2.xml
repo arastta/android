@@ -21,10 +21,11 @@
         android:id="@+id/MenuTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/BackButton"
+        android:layout_marginRight="8dp"
         android:maxLines="1"
         android:ellipsize="end"
-        android:layout_toRightOf="@+id/BackButton"
-        android:layout_centerVertical="true"
         android:textColor="@android:color/white"
         android:textSize="18dp"/>
 

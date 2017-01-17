@@ -309,7 +309,10 @@ public class DashboardActivity extends MasterActivity
                                 totalValue += daily.getJSONObject(i).getInt("price");
 
                                 if(maxValue < daily.getJSONObject(i).getInt("price"))
+                                {
                                     maxValue = daily.getJSONObject(i).getInt("price");
+                                    Log.i("maxValue"+String.valueOf(i),String.valueOf(maxValue));
+                                }
                             }
                             catch (JSONException e)
                             {
@@ -343,6 +346,8 @@ public class DashboardActivity extends MasterActivity
                         graphView.getViewport().setXAxisBoundsManual(true);
                         graphView.getViewport().setMinX(0);
                         graphView.getViewport().setMaxX(daily.length());
+                        graphView.getViewport().setMinY(0);
+                        graphView.getViewport().setMaxY(maxValue);
                         graphView.getGridLabelRenderer().setGridColor(context.getResources().getColor(R.color.colorAccent));
                         graphView.getGridLabelRenderer().setVerticalLabelsColor(context.getResources().getColor(R.color.colorAccent));
                         graphView.getGridLabelRenderer().setHorizontalLabelsColor(context.getResources().getColor(R.color.colorAccent));
