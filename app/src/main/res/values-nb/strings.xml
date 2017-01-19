@@ -1,13 +1,10 @@
 <resources>
     <string name="app_name">Arastta</string>
-
     <string name="font">"fonts/DroidSans.ttf"</string>
     <string name="font_bold">"fonts/DroidSans-Bold.ttf"</string>
-
     <string name="please_wait">Vent litt ...</string>
     <string name="connection_failed">"Tilkobling feilet. Kontroller innstillinger for tilkobling."</string>
     <string name="exit_toast">"Trykk en gang til på 'Tilbake'-knappen for å avslutte."</string>
-
     <string name="save">Lagre</string>
     <string name="cancel">Avbryt</string>
     <string name="enable">Aktivert</string>
@@ -15,11 +12,8 @@
     <string name="yes">Ja</string>
     <string name="no">Nei</string>
     <string name="warning">Advarsel</string>
-
     <string name="delete_store">Er du sikker på at du vil fjerne denne butikken?</string>
-
-    <string name="get_arastta_cloud">Skaff Arastta Cloud</string>
-
+    <string name="get_arastta_cloud">Test Arastta Cloud</string>
     <string name="new_store">Ny butikk</string>
     <string name="StoreTitle">Butikknavn</string>
     <string name="storeUrl">Nettadresse</string>
@@ -35,25 +29,18 @@
     <string name="PasswordTitle">API-passord</string>
     <string name="NotTitle">Varslinger</string>
     <string name="ListTitle">Listeinnstillinger</string>
-
     <string name="store_create_error">"Du må fylle inn påkrevd informasjon for å kunne fullføre."</string>
-
     <string name="order_status_complete">"Bestillingsstatus har blitt oppdatert."</string>
-
     <string name="dashboard">Kontrollpanel</string>
     <string name="orders">Bestillinger</string>
     <string name="customers">Kunder</string>
     <string name="products">Produkter</string>
-
     <string name="manage_stores">Butikkbehandling</string>
     <string name="app_settings">App-innstillinger</string>
-
     <string name="add_store">Legg til butikk ...</string>
-
-    <string name="today">I Dag</string>
-    <string name="monthly">I Måned</string>
-    <string name="yearly">I År</string>
-
+    <string name="today">I dag</string>
+    <string name="monthly">Denne måned</string>
+    <string name="yearly">Dette år</string>
     <string name="sales">Salg</string>
     <string name="product_info">Produktinfo</string>
     <string name="product_desc">Produktbeskrivelse</string>
@@ -62,16 +49,13 @@
     <string name="history">Historikk</string>
     <string name="notify_customer">Varsle kunden</string>
     <string name="notification">Varsling</string>
-
     <string name="start_date">Startdato</string>
     <string name="finish_date">Sluttdato</string>
     <string name="date_range">Datointervall</string>
-
     <string name="dashboard_details_1">Bestillingsverdi per dag (snitt):</string>
     <string name="dashboard_details_2">Bestillinger per dag (snitt):</string>
     <string name="dashboard_details_3">Kunder per dag (snitt):</string>
     <string name="dashboard_details_4">Bestillingsverdi per kunde (snitt):</string>
-
     <string name="total">Totalt:</string>
     <string name="customer_id">Kundenr:</string>
     <string name="order_id">Bestillingsnr:</string>
@@ -99,22 +83,19 @@
     <string name="fax">Faks:</string>
     <string name="payment_method">Betalingsmåte:</string>
     <string name="comment">Kommentar:</string>
-
     <string-array name="Periods">
-        <item>Today</item>
-        <item>This Week</item>
-        <item>This Month</item>
-        <item>This Quarter</item>
-        <item>This Year</item>
+        <item>I dag</item>
+        <item>Denne uken</item>
+        <item>Denne måned</item>
+        <item>Dette kvartal</item>
+        <item>Dette år</item>
     </string-array>
-
-    <string name="done">Done</string>
-    <string name="order_statuses">Order Statuses</string>
-    <string name="widget_configure">Configure</string>
-    <string name="widget_update">Update</string>
-    <string name="widget_store_name">Store Name</string>
-    <string name="widget_period">Period</string>
-    <string name="widget_order_status">Order Status</string>
-    <string name="widget_choose">Choose the order status</string>
-
+    <string name="done">Klart</string>
+    <string name="order_statuses">Ordrestatus</string>
+    <string name="widget_configure">Konfigurere</string>
+    <string name="widget_update">Oppdater</string>
+    <string name="widget_store_name">Butikknavn</string>
+    <string name="widget_period">Periode</string>
+    <string name="widget_order_status">Bestillingsstatus</string>
+    <string name="widget_choose">Velg bestillingsstatus</string>
 </resources>
